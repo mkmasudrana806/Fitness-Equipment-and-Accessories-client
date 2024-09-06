@@ -3,7 +3,6 @@ import Sider from "antd/es/layout/Sider";
 import sidebarGenerator from "../../utils/sidebarGenerator";
 import { adminPaths } from "../../routes/admin.routes";
 import { userPaths } from "../../routes/user.routes";
-import { useAppSelector } from "../../redux/hooks";
 
 const userRole = {
   admin: "admin",
@@ -44,7 +43,7 @@ const Sidebar = () => {
           padding: "10px",
         }}
       >
-        PH University
+        GymBolt
       </h3>
       <Menu
         theme="dark"

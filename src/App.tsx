@@ -1,13 +1,9 @@
 import "./App.css";
-import MainLayout from "./components/layout/MainLayout";
-import ProtectedRoute from "./components/layout/ProtectedRoute";
+import PublicLayout from "./components/layout/PublicLayout";
 
 function App() {
-  return (
-    <ProtectedRoute>
-      <MainLayout />
-    </ProtectedRoute>
-  );
+  // render layout based on role 
+  return <PublicLayout />;
 }
 
 export default App;

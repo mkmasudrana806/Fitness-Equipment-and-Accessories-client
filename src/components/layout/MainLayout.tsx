@@ -1,4 +1,3 @@
-import React from "react";
 import { Button, Layout, theme } from "antd";
 import { Outlet } from "react-router-dom";
 
@@ -7,7 +6,7 @@ import { useAppDispatch } from "../../redux/hooks";
 import { logout } from "../../redux/features/auth/authSlice";
 const { Header, Content, Footer } = Layout;
 
-const MainLayout: React.FC = () => {
+const MainLayout = () => {
   // redux
   const dispatch = useAppDispatch();
   const {
