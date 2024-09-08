@@ -52,10 +52,8 @@ const FeaturedCard = styled.div`
     padding: 10px 10px 10px 10px;
     .category {
       font-weight: 600;
-      color: rgba(0, 0, 0, 0.753);
     }
     .title {
-      color: rgba(0, 0, 0, 0.753);
       font-size: 1.3rem;
       display: -webkit-box;
       -webkit-line-clamp: 2; /* Number of lines */

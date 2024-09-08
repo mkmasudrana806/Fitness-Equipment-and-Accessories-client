@@ -10,6 +10,15 @@
   height: 100vh;
 }
 
+h1,
+h2,
+h3,
+h4,
+h5,
+h6, p, a {
+  color: rgba(0, 0, 0, 0.753);
+}
+
 /* 1200px container for all layouts */
 .layout-container {
   max-width: 1200px;
