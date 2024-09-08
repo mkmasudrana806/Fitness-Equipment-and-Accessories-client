@@ -2,7 +2,7 @@ import "./App.css";
 import PublicLayout from "./components/layout/PublicLayout";
 
 function App() {
-  // render layout based on role 
+  // render layout based on role
   return <PublicLayout />;
 }
 

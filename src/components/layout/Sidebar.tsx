@@ -1,8 +1,8 @@
 import { Menu } from "antd";
 import Sider from "antd/es/layout/Sider";
-import sidebarGenerator from "../../utils/sidebarGenerator";
-import { adminPaths } from "../../routes/admin.routes";
-import { userPaths } from "../../routes/user.routes";
+import sidebarGenerator from "../utils/sidebarGenerator";
+import { adminPaths } from "../routes/admin.routes";
+import { userPaths } from "../routes/user.routes";
 
 const userRole = {
   admin: "admin",

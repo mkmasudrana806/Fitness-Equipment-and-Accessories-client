@@ -1,8 +1,9 @@
 import { Button, Drawer, Layout, Menu, Space, Typography } from "antd";
 import React, { useState } from "react";
 import logo from "../../assets/logo.png";
-import "./publicLayout.css";
+import "../../styles/publicLayout.css";
 import { MenuOutlined } from "@ant-design/icons";
+import Homepage from "../../pages/public/Homepage";
 
 const { Header, Content } = Layout;
 
@@ -32,6 +33,8 @@ const PublicLayout = () => {
           <img src={logo} style={{ height: "32px", width: "32px" }} alt="" />
           <h2> GymBolt</h2>
         </div>
+        
+        {/* header nav links  */}
         <Space
           className="nav-links"
           size={"middle"}
@@ -70,7 +73,7 @@ const PublicLayout = () => {
       </Header>
 
       <Content style={{ backgroundColor: "white" }}>
-        <div>Content</div>
+        <Homepage />
       </Content>
     </Layout>
   );
