@@ -15,8 +15,14 @@ h2,
 h3,
 h4,
 h5,
-h6, p, a {
-  color: rgba(0, 0, 0, 0.753);
+h6,
+p,
+a,
+label,
+span,
+input[type="checkbox"] {
+  /* color: rgba(0, 0, 0, 0.753); */
+  color: rgba(0, 0, 0, 0.7);
 }
 
 /* 1200px container for all layouts */

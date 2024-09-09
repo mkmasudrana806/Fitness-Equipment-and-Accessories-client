@@ -5,7 +5,7 @@ import {
   GithubFilled,
   TwitterOutlined,
 } from "@ant-design/icons";
-import "./footer.css";
+import "../styles/footer.css";
 
 const Footer = () => {
   return (

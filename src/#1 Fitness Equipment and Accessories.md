@@ -13,7 +13,7 @@ The backend should be built using Node.js, Express, and MongoDB. You can make a 
 
 ### Core Pages and Functionalities
 
-1. **Homepage**
+1. **Homepage** done
 2. **Products Page**
 3. **Product Management**
 4. **Product Details Page**

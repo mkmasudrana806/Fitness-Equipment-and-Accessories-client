@@ -7,12 +7,28 @@ import { adminPaths } from "./admin.routes";
 import { userPaths } from "./user.routes";
 import routesGenerator from "../utils/routesGenerator";
 import ErrorPage from "../pages/ErrorPage";
+import PublicLayout from "../components/layout/PublicLayout";
+import Homepage from "../pages/public/Homepage";
+import ProductsPage from "../pages/public/ProductsPage";
 
 export const router = createBrowserRouter([
   {
     path: "/",
-    element: <App />,
+    element: <PublicLayout />,
     errorElement: <ErrorPage />,
+    children: [
+      {
+        path: "/",
+        element: <Homepage />,
+        errorElement: <ErrorPage />,
+      },
+
+      {
+        path: "/products",
+        element: <ProductsPage />,
+        errorElement: <ErrorPage />,
+      },
+    ],
   },
   {
     path: "/admin",
