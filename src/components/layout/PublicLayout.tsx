@@ -3,6 +3,7 @@ import "../../styles/publicLayout.css";
 import HeaderCom from "../Header";
 import { Outlet } from "react-router-dom";
 import Footer from "../Footer";
+import ProductDetailsPage from "../../pages/public/ProductDetailsPage";
 const { Content } = Layout;
 
 const PublicLayout = () => {
@@ -10,9 +11,10 @@ const PublicLayout = () => {
     <Layout className="layout-container">
       <HeaderCom />
       <Content style={{ backgroundColor: "white" }}>
-        <Outlet />
+        {/* <Outlet /> */}
+        <ProductDetailsPage />
       </Content>
-      <Footer />
+      <Footer  />
     </Layout>
   );
 };
