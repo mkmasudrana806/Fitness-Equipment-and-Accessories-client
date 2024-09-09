@@ -1,4 +1,6 @@
 import { Avatar, Button, Divider, Empty, List } from "antd";
+import { useState } from "react";
+import CommentForm from "./CommentForm";
 const data = [
   {
     title: "User 1",
@@ -15,6 +17,8 @@ const data = [
 ];
 
 const Comments = () => {
+  const [isComment, setIsComment] = useState(false);
+
   return (
     <div>
       <p>
@@ -22,21 +26,26 @@ const Comments = () => {
         product
       </p>
       <Divider />
+      {/* review form  */}
+      {isComment && <CommentForm />}
+
       {/* when no comments, show empty message  */}
-      <Empty
-        image="https://gw.alipayobjects.com/zos/antfincdn/ZHrcdLPrvN/empty.svg"
-        imageStyle={{ height: 60 }}
-        description={
-          <p>
-            This product has no comments yet. Be the first one to write a
-            comment
-          </p>
-        }
-      >
-        <Button ghost type="primary">
-          Write a comment
-        </Button>
-      </Empty>
+      {!isComment && (
+        <Empty
+          image="https://gw.alipayobjects.com/zos/antfincdn/ZHrcdLPrvN/empty.svg"
+          imageStyle={{ height: 60 }}
+          description={
+            <p>
+              This product has no comments yet. Be the first one to write a
+              comment
+            </p>
+          }
+        >
+          <Button onClick={() => setIsComment(true)} ghost type="primary">
+            Write a comment
+          </Button>
+        </Empty>
+      )}
       {/* show comments when it has  */}
       <List
         itemLayout="horizontal"

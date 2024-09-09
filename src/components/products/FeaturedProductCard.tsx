@@ -49,7 +49,7 @@ const FeaturedCard = styled.div`
     }
   }
   .info {
-    padding: 10px 10px 10px 10px;
+    padding: 10px;
     .category {
       font-weight: 600;
     }

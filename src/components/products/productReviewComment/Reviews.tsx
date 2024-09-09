@@ -1,4 +1,6 @@
 import { Avatar, Button, Divider, Empty, List } from "antd";
+import ReviewForm from "./ReviewForm";
+import { useState } from "react";
 
 const data = [
   {
@@ -16,24 +18,32 @@ const data = [
 ];
 
 const Reviews = () => {
+  const [isReview, setIsReview] = useState(false);
+
   return (
     <div>
       <p>Get specific details about this products from customers who own it</p>
       <Divider />
+      {/* review form  */}
+      {isReview && <ReviewForm />}
+
       {/* when no reviews, show empty message  */}
-      <Empty
-        image="https://gw.alipayobjects.com/zos/antfincdn/ZHrcdLPrvN/empty.svg"
-        imageStyle={{ height: 60 }}
-        description={
-          <p>
-            This product has no reviews yet. Be the first one to write a review
-          </p>
-        }
-      >
-        <Button ghost type="primary">
-          Write a review
-        </Button>
-      </Empty>
+      {!isReview && (
+        <Empty
+          image="https://gw.alipayobjects.com/zos/antfincdn/ZHrcdLPrvN/empty.svg"
+          imageStyle={{ height: 60 }}
+          description={
+            <p>
+              This product has no reviews yet. Be the first one to write a
+              review
+            </p>
+          }
+        >
+          <Button onClick={() => setIsReview(true)} ghost type="primary">
+            Write a review
+          </Button>
+        </Empty>
+      )}
       {/* show reviews when it has  */}
       <List
         itemLayout="horizontal"
@@ -48,7 +58,6 @@ const Reviews = () => {
               }
               title={<a href="https://ant.design">{item.title}</a>}
               description="Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quod corrupti ipsam voluptatem accusantium at ipsa alias"
-              children="children"
             />
           </List.Item>
         )}

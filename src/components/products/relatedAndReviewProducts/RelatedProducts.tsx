@@ -20,6 +20,7 @@ const RelatedProducts = () => {
 
 export default RelatedProducts;
 
+// related products containers
 const RelatedProductsContainer = styled.div`
   margin-top: 16px;
   display: grid;
@@ -53,7 +54,7 @@ const RelatedProductsContainer = styled.div`
   }
 
   // responsive
-  @media screen and (min-width: 500px) and (max-width: 768px) {
+  @media screen and (min-width: 551px) and (max-width: 768px) {
     .product {
       max-width: fit-content;
       height: fit-content;
@@ -65,12 +66,17 @@ const RelatedProductsContainer = styled.div`
   }
 
   // responsive
-  @media screen and (min-width: 324px) and (max-width: 500px) {
+  @media screen and (min-width: 324px) and (max-width: 550px) {
+    display: block;
     .product {
+      min-width: 100%;
+      max-width: 100%;
+      display: flex;
+      margin-bottom: 16px;
       .img-container {
-        height: 250px;
+        min-width: 150px;
+        height: 150px;
       }
     }
-    grid-template-columns: repeat(1, 1fr);
   }
 `;
