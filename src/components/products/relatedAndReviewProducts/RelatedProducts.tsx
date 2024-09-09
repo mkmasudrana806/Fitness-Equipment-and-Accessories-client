@@ -10,6 +10,9 @@ const RelatedProducts = () => {
         <FeatruedProductCard />
         <FeatruedProductCard />
         <FeatruedProductCard />
+        <FeatruedProductCard />
+        <FeatruedProductCard />
+        <FeatruedProductCard />
       </RelatedProductsContainer>
     </div>
   );
@@ -20,6 +23,54 @@ export default RelatedProducts;
 const RelatedProductsContainer = styled.div`
   margin-top: 16px;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   gap: 16px;
+  .product {
+    min-width: 180px;
+    max-width: 250px;
+    height: fit-content;
+    .img-container {
+      height: 120px;
+    }
+    .info {
+      .category {
+        font-size: 0.8rem;
+      }
+      .title {
+        font-size: 1.1rem;
+      }
+    }
+  }
+
+  // responsive
+  @media screen and (min-width: 868px) and (max-width: 992px) {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  // responsive
+  @media screen and (min-width: 768px) and (max-width: 868px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  // responsive
+  @media screen and (min-width: 500px) and (max-width: 768px) {
+    .product {
+      max-width: fit-content;
+      height: fit-content;
+      .img-container {
+        height: 200px;
+      }
+    }
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  // responsive
+  @media screen and (min-width: 324px) and (max-width: 500px) {
+    .product {
+      .img-container {
+        height: 250px;
+      }
+    }
+    grid-template-columns: repeat(1, 1fr);
+  }
 `;

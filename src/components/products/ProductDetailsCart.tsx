@@ -86,6 +86,23 @@ const ProductDetails = styled.div`
   img {
     width: 100%;
   }
+  // media query 768px
+  @media screen and (max-width: 768px) {
+    flex-direction: column;
+    > div {
+      width: 100%;
+    }
+    .product-info {
+      width: 100%;
+    }
+  }
+  @media screen and (min-width: 769px) and (max-width: 869px) {
+    .product-info {
+      .product-title {
+        font-size: 1.2rem;
+      }
+    }
+  }
 `;
 
 // product info
