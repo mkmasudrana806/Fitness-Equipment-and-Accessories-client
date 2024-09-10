@@ -1,6 +1,6 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { SearchOutlined } from "@ant-design/icons";
-import type { InputRef, TableColumnsType, TableColumnType } from "antd";
+import type { InputRef, TableColumnType } from "antd";
 import { Avatar, Button, Input, Space, Table, Tooltip } from "antd";
 import type { FilterDropdownProps } from "antd/es/table/interface";
 import Highlighter from "react-highlight-words";
@@ -20,6 +20,7 @@ const ProductsManagementPage = () => {
   const [searchText, setSearchText] = useState("");
   const [searchedColumn, setSearchedColumn] = useState("");
   const searchInput = useRef<InputRef>(null);
+  const [isMobile, setIsMobile] = useState(false);
 
   // handle search
   const handleSearch = (
@@ -152,20 +153,43 @@ const ProductsManagementPage = () => {
     },
   ];
 
+  // handle update product
   const handleUpdate = (_id: string) => {
     console.log("Update product with id:", _id);
   };
 
+  // handle delete product
   const handleDelete = (_id: string) => {
     console.log("Delete product with id:", _id);
   };
 
+  // handle view product
   const handleView = (_id: string) => {
     console.log("View product with id:", _id);
   };
 
+  // Detect window resize and check for mobile screen size
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    // Initialize and listen for resize events
+    window.addEventListener("resize", handleResize);
+    handleResize(); // Call once on load
+
+    // Cleanup event listener on unmount
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   return (
-    <Table dataSource={data} pagination={false} scroll={{ x: 576, y: 500 }}>
+    <Table
+      style={{ transition: "0.3s" }}
+      dataSource={data}
+      pagination={false}
+      size={isMobile ? "small" : "large"}
+      scroll={{ x: 576, y: 500 }}
+    >
       <Table.Column
         title="Name"
         dataIndex="name"
