@@ -48,11 +48,7 @@ const Cart = () => {
           <Button onClick={decrement}>-</Button>
         </ProductQuantityCount>
         <p>$500</p>
-        <Avatar
-          style={{ cursor: "pointer", backgroundColor: "#ffa8a8" }}
-          className="delete-cart"
-          icon={<DeleteOutlined />}
-        />
+        <Avatar className="delete-cart" icon={<DeleteOutlined />} />
       </div>
     </Product>
   );
@@ -67,6 +63,14 @@ const Product = styled.div`
   margin-bottom: 16px;
   box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px;
   padding-right: 18px;
+  .delete-cart {
+    cursor: pointer;
+    background-color: #f79f9f;
+    min-width: 32px;
+    &:hover {
+      background-color: #fc9191;
+    }
+  }
 `;
 // product image section
 const ProductImg = styled.div`
@@ -80,6 +84,7 @@ const ProductImg = styled.div`
     background-color: green;
     overflow: hidden;
     object-fit: cover;
+    // 768px to 992px hide image
   }
   h1 {
     display: -webkit-box;
@@ -89,6 +94,17 @@ const ProductImg = styled.div`
     overflow: hidden;
     text-overflow: ellipsis;
     font-size: 1.1rem;
+  }
+  @media screen and (max-width: 676px) {
+    .img-container {
+      display: none;
+    }
+    h1 {
+      -webkit-line-clamp: 1; /* Number of lines */
+      line-clamp: 1;
+      font-size: 1rem;
+    }
+    padding: 8px;
   }
 `;
 // product quantity increment decrement

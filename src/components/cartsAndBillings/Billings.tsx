@@ -15,7 +15,7 @@ const Billings = () => {
   return (
     <BillingCart>
       <h1>Bill Details</h1>
-      <div style={{ margin: "16px 0px" }}>
+      <div>
         {/* <!-- sub total --> */}
         <div
           style={{
@@ -71,7 +71,7 @@ const Billings = () => {
           disabled={totalAmount === 0 ? true : false}
           className="placeOrderbtn"
         >
-          {totalAmount > 0 ? "place order" : "no cart selected"}
+          {totalAmount > 0 ? "Proceed to checkout" : "no cart selected"}
         </PlaceOrderBtn>
       </div>
     </BillingCart>
@@ -81,7 +81,8 @@ const Billings = () => {
 export default Billings;
 
 const BillingCart = styled.div`
-  width: 350px;
+  min-width: 300px;
+  margin: 0 auto;
   box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px;
   padding: 16px;
   height: fit-content;

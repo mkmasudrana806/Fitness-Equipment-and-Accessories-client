@@ -2,7 +2,7 @@ import Cart from "./Cart";
 
 const Carts = () => {
   return (
-    <div>
+    <div style={{ marginBottom: "16px" }}>
       <Cart />
       <Cart />
       <Cart />
