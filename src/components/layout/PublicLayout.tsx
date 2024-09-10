@@ -3,7 +3,7 @@ import "../../styles/publicLayout.css";
 import HeaderCom from "../Header";
 import { Outlet } from "react-router-dom";
 import Footer from "../Footer";
-import CartsPage from "../../pages/user/CartsPage";
+import CheckOutPage from "../../pages/user/CheckOutPage";
 const { Content } = Layout;
 
 const PublicLayout = () => {
@@ -12,7 +12,7 @@ const PublicLayout = () => {
       <HeaderCom />
       <Content style={{ backgroundColor: "white" }}>
         {/* <Outlet /> */}
-        <CartsPage />
+        <CheckOutPage />
       </Content>
       <Footer />
     </Layout>
