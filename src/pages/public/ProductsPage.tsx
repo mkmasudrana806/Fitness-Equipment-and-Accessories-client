@@ -8,7 +8,7 @@ import {
 } from "antd";
 import styled from "styled-components";
 import ProductFilters from "../../components/products/ProductFilters";
-import FeatruedProductCard from "../../components/products/FeaturedProductCard";
+import ProductCard from "../../components/products/ProductCard";
 import { FilterOutlined } from "@ant-design/icons";
 import { useState } from "react";
 
@@ -85,10 +85,10 @@ const ProductsPage = () => {
 
         {/* products containers */}
         <ProductsContainer>
-          <FeatruedProductCard />
-          <FeatruedProductCard />
-          <FeatruedProductCard />
-          <FeatruedProductCard />
+          <ProductCard />
+          <ProductCard />
+          <ProductCard />
+          <ProductCard />
         </ProductsContainer>
 
         <Pagination
@@ -114,7 +114,7 @@ const ProductPage = styled.div`
     width: 300px;
   }
 
-  // hide filters sidebar when 
+  // hide filters sidebar when
   @media screen and (max-width: 1000px) {
     .filters-sidebar {
       display: none;

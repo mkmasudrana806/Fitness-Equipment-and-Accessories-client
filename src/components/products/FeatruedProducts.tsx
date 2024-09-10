@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import FeatruedProductCard from "./FeaturedProductCard";
+import ProductCard from "./ProductCard";
 import { Button } from "antd";
 import { ArrowRightOutlined } from "@ant-design/icons";
 
@@ -13,10 +13,10 @@ const FeatruedProducts = () => {
         </Button>
       </div>
       <div className="products-container">
-        <FeatruedProductCard />
-        <FeatruedProductCard />
-        <FeatruedProductCard />
-        <FeatruedProductCard />
+        <ProductCard />
+        <ProductCard />
+        <ProductCard />
+        <ProductCard />
       </div>
     </FeaturedProduct>
   );
