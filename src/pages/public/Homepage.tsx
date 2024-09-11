@@ -13,7 +13,6 @@ const Homepage = () => {
       <FeatruedProducts />
       <Benefits />
       <SuccessCustomersGallery />
-      <Footer />
     </>
   );
 };

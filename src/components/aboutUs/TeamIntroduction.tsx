@@ -85,7 +85,6 @@ const TeamIntroduction = () => {
       </h1>
 
       <Swiper
-        spaceBetween={16}
         freeMode={true}
         pagination={{
           clickable: true,
@@ -113,6 +112,7 @@ const TeamIntroduction = () => {
           },
           // when window width is >= 1170px
           1170: {
+       
             slidesPerView: 4,
           },
         }}
@@ -140,6 +140,7 @@ export default TeamIntroduction;
 const TeamCart = styled.div`
   text-align: "center";
   border: 1px solid rgba(3, 3, 3, 0.122);
+  padding: 16px;
 `;
 
 // team identification

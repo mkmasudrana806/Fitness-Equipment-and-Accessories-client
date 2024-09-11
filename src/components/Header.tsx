@@ -1,7 +1,10 @@
-import { Button, Drawer, Layout, Menu, Space, Typography } from "antd";
+import { Button, Drawer, Layout, Menu, Space } from "antd";
 import React, { useState } from "react";
 import logo from "../assets/logo.png";
 import { MenuOutlined } from "@ant-design/icons";
+import styled from "styled-components";
+import { NavLink } from "react-router-dom";
+
 const { Header } = Layout;
 
 const HeaderCom = () => {
@@ -14,24 +17,31 @@ const HeaderCom = () => {
   };
   return (
     <Header style={headerStyles}>
-      <div style={{ display: "flex", alignItems: "center", columnGap: "10px" }}>
-        <img src={logo} style={{ height: "32px", width: "32px" }} alt="" />
-        <h2> GymBolt</h2>
-      </div>
+      <NavLink
+        to={"/"}
+        style={{ display: "flex", alignItems: "center", columnGap: "16px" }}
+      >
+        <img
+          src={logo}
+          style={{ height: "48px", minWidth: "48px", maxWidth: "48px" }}
+          alt=""
+        />
+        <h1 style={{ fontSize: "1.5rem" }}> GymBolt</h1>
+      </NavLink>
 
       {/* header nav links  */}
-      <Space
+      <HeaderNavlinks
         className="nav-links"
         size={"middle"}
         style={{ marginLeft: "16px" }}
       >
-        <Typography>Home</Typography>
-        <Typography>Products</Typography>
-        <Typography>Testimonials</Typography>
-        <Typography>About Us</Typography>
-        <Typography>Contact Us</Typography>
-        <Typography>Login</Typography>
-      </Space>
+        <p>Home</p>
+        <p>Products</p>
+        <p>Testimonials</p>
+        <p>About Us</p>
+        <p>Contact Us</p>
+        <p>Login</p>
+      </HeaderNavlinks>
 
       {/* show drawer when screen is small  */}
       <Button
@@ -69,3 +79,15 @@ const headerStyles: React.CSSProperties = {
   padding: "0px",
   backgroundColor: "white",
 };
+
+// header navlinks
+const HeaderNavlinks = styled(Space)`
+  p {
+    font-size: 1.2rem;
+    cursor: pointer;
+    &:hover {
+      color: tomato;
+      text-decoration: underline;
+    }
+  }
+`;

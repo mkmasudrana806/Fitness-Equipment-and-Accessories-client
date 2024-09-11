@@ -21,14 +21,14 @@ const ContactInformation: React.FC = () => {
         Contact Us
       </Title>
       <Space direction="vertical" size="middle" style={{ width: "100%" }}>
-        <Paragraph>
+        <Paragraph style={{ fontSize: "1.1rem" }}>
           <EnvironmentOutlined /> Address: 123 Main Street, Suite 500,
           Cityville, Country
         </Paragraph>
-        <Paragraph>
+        <Paragraph style={{ fontSize: "1.1rem" }}>
           <PhoneOutlined /> Phone: +123 456 7890
         </Paragraph>
-        <Paragraph>
+        <Paragraph style={{ fontSize: "1.1rem" }}>
           <MailOutlined /> Email: contact@company.com
         </Paragraph>
         <Paragraph style={{ textAlign: "center", marginTop: "20px" }}>
@@ -41,8 +41,3 @@ const ContactInformation: React.FC = () => {
 };
 
 export default ContactInformation;
-
-
-
-
-

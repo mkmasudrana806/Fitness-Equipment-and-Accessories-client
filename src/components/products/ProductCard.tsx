@@ -93,7 +93,7 @@ const FeaturedButton = styled.button`
   );
   border: none;
   padding: 3px 5px;
-  font-size: 10px;
+  font-size: 12px;
   text-transform: uppercase;
   transition: 0.5s;
   background-size: 200% auto;
