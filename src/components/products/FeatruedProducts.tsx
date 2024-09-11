@@ -10,15 +10,18 @@ import "swiper/css/free-mode";
 import "swiper/css/pagination";
 // import required modules
 import { FreeMode, Pagination } from "swiper/modules";
+import { NavLink } from "react-router-dom";
 
 const FeatruedProducts = () => {
   return (
     <FeaturedProduct>
       <div className="container-title">
         <h1>Featured products</h1>
-        <Button icon={<ArrowRightOutlined />} iconPosition={"end"}>
-          More
-        </Button>
+        <NavLink to={"/products"}>
+          <Button icon={<ArrowRightOutlined />} iconPosition={"end"}>
+            More
+          </Button>
+        </NavLink>
       </div>
       <Swiper
         style={{ padding: "4px" }}

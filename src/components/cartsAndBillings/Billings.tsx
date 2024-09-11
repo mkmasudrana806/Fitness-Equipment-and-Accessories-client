@@ -1,4 +1,5 @@
 import { Button } from "antd";
+import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 
 const Billings = () => {
@@ -71,7 +72,9 @@ const Billings = () => {
           disabled={totalAmount === 0 ? true : false}
           className="placeOrderbtn"
         >
-          {totalAmount > 0 ? "Proceed to checkout" : "no cart selected"}
+          <NavLink to={"/checkout"}>
+            {totalAmount > 0 ? "Proceed to checkout" : "no cart selected"}
+          </NavLink>
         </PlaceOrderBtn>
       </div>
     </BillingCart>
@@ -80,6 +83,7 @@ const Billings = () => {
 
 export default Billings;
 
+// billing container
 const BillingCart = styled.div`
   min-width: 300px;
   margin: 0 auto;
@@ -97,6 +101,10 @@ const BillingCart = styled.div`
 // place order button
 const PlaceOrderBtn = styled(Button)`
   margin-top: 16px;
+  background-color: #ff8b77;
+  &:hover {
+    background-color: tomato !important;
+  }
   span {
     color: white;
   }

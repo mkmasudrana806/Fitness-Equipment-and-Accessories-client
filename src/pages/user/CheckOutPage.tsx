@@ -4,6 +4,7 @@ import { Button, message, Steps, theme } from "antd";
 import BillingAddress from "../../components/checkout/BillingAddress";
 import ShippingAddress from "../../components/checkout/ShippingAddress";
 import PaymentMethods from "../../components/checkout/PaymentMethods";
+import { NavLink } from "react-router-dom";
 
 // checkout page components
 const CheckOutPage = () => {
@@ -68,12 +69,14 @@ const CheckOutPage = () => {
   };
 
   return (
-    <>
+    <div style={{ marginTop: "24px" }}>
       <Steps current={current} items={items} />
       <div style={contentStyle}>{steps[current].content}</div>
       {/* steps switch button  */}
       {processCompleted ? (
-        <Button type="primary">Place Order</Button>
+        <NavLink to={"/purchase-success"}>
+          <Button type="primary">Place Order</Button>
+        </NavLink>
       ) : (
         <div>
           {current < steps.length - 1 && shippingAddressCompleted && (
@@ -93,7 +96,7 @@ const CheckOutPage = () => {
           )}
         </div>
       )}
-    </>
+    </div>
   );
 };
 

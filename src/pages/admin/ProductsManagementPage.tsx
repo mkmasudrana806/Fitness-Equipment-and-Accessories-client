@@ -8,6 +8,20 @@ import { EditFilled, DeleteFilled, EyeFilled } from "@ant-design/icons";
 import styled from "styled-components";
 import { useMediaQuery } from "react-responsive";
 
+import type { PopconfirmProps } from "antd";
+import { message, Popconfirm } from "antd";
+import { NavLink } from "react-router-dom";
+
+const confirm: PopconfirmProps["onConfirm"] = (e) => {
+  console.log(e);
+  message.success("Product deleted successfully");
+};
+
+const cancel: PopconfirmProps["onCancel"] = (e) => {
+  console.log(e);
+  message.error("There was an error!");
+};
+
 // data type for the table
 interface DataType {
   key: React.Key;
@@ -173,9 +187,8 @@ const ProductsManagementPage = () => {
 
   return (
     <Table
-      style={{ transition: "0.3s" }}
+      style={{ transition: "0.3s", marginTop: "16px" }}
       dataSource={data}
-      pagination={false}
       size={isMobileView ? "small" : "large"}
       scroll={{ x: 576, y: 500 }}
     >
@@ -225,21 +238,32 @@ const ProductsManagementPage = () => {
         width={120}
         render={(_, record) => (
           <ActionButtons>
-            <Tooltip title="Update this product">
-              <Avatar
-                icon={<EditFilled />}
-                style={{ cursor: "pointer" }}
-                onClick={() => handleUpdate(record._id)}
-              />
+            <NavLink to={"/add-product"}>
+              <Tooltip title="Update product">
+                <Avatar
+                  icon={<EditFilled />}
+                  style={{ cursor: "pointer" }}
+                  onClick={() => handleUpdate(record._id)}
+                />
+              </Tooltip>
+            </NavLink>
+            <Tooltip title="Delete product">
+              <Popconfirm
+                title="Delete the task"
+                description="Are you sure to delete this task?"
+                onConfirm={confirm}
+                onCancel={cancel}
+                okText="Yes"
+                cancelText="No"
+              >
+                <Avatar
+                  icon={<DeleteFilled />}
+                  style={{ cursor: "pointer" }}
+                  onClick={() => handleDelete(record._id)}
+                />
+              </Popconfirm>
             </Tooltip>
-            <Tooltip title="Delete this product">
-              <Avatar
-                icon={<DeleteFilled />}
-                style={{ cursor: "pointer" }}
-                onClick={() => handleDelete(record._id)}
-              />
-            </Tooltip>
-            <Tooltip title="View this product">
+            <Tooltip title="View product">
               <Avatar
                 icon={<EyeFilled />}
                 style={{ cursor: "pointer" }}

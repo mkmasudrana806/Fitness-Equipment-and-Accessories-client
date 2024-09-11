@@ -3,6 +3,7 @@ import cartImg from "../../assets/images/gymPerson11.png";
 import { Avatar, Button } from "antd";
 import styled from "styled-components";
 import { DeleteOutlined } from "@ant-design/icons";
+import { NavLink } from "react-router-dom";
 
 const Cart = () => {
   const [quantity, setQuantity] = useState(1);
@@ -25,10 +26,13 @@ const Cart = () => {
           <img src={cartImg} alt="" />
         </div>
         <div>
-          <h1>
+          <NavLink
+            style={{ fontSize: "1.1rem", fontWeight: "bold" }}
+            to={"/product/1"}
+          >
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem,
             deleniti!
-          </h1>
+          </NavLink>
           <p style={{ marginTop: "8px" }}>$500</p>
         </div>
       </ProductImg>

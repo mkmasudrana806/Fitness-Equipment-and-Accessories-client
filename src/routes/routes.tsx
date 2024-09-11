@@ -10,6 +10,13 @@ import ErrorPage from "../pages/ErrorPage";
 import PublicLayout from "../components/layout/PublicLayout";
 import Homepage from "../pages/public/Homepage";
 import ProductsPage from "../pages/public/ProductsPage";
+import ProductDetailsPage from "../pages/public/ProductDetailsPage";
+import AboutUs from "../pages/public/AboutUs";
+import CartsPage from "../pages/user/CartsPage";
+import CheckOutPage from "../pages/user/CheckOutPage";
+import PurchaseSuccessMessage from "../components/PurchaseSuccessMessage";
+import ProductsManagementPage from "../pages/admin/ProductsManagementPage";
+import AddProduct from "../components/products/AddProduct";
 
 export const router = createBrowserRouter([
   {
@@ -28,13 +35,43 @@ export const router = createBrowserRouter([
         errorElement: <ErrorPage />,
       },
       {
-        path: "/user",
-        element: <Homepage />,
+        path: "/product/1",
+        element: <ProductDetailsPage />,
         errorElement: <ErrorPage />,
       },
       {
         path: "/products",
         element: <ProductsPage />,
+        errorElement: <ErrorPage />,
+      },
+      {
+        path: "/products-management",
+        element: <ProductsManagementPage />,
+        errorElement: <ErrorPage />,
+      },
+      {
+        path: "/add-product",
+        element: <AddProduct />,
+        errorElement: <ErrorPage />,
+      },
+      {
+        path: "/carts",
+        element: <CartsPage />,
+        errorElement: <ErrorPage />,
+      },
+      {
+        path: "/checkout",
+        element: <CheckOutPage />,
+        errorElement: <ErrorPage />,
+      },
+      {
+        path: "/purchase-success",
+        element: <PurchaseSuccessMessage />,
+        errorElement: <ErrorPage />,
+      },
+      {
+        path: "/about-us",
+        element: <AboutUs />,
         errorElement: <ErrorPage />,
       },
     ],

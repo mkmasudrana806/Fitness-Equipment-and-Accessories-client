@@ -84,8 +84,8 @@ const ProductCardContainer = styled.div`
           rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
         cursor: pointer;
         &:hover {
-          border: 1px solid #1563f3;
-          color: #1563f3;
+          border: 1px solid tomato;
+          color: tomato;
         }
       }
     }

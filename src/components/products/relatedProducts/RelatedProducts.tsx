@@ -29,7 +29,7 @@ const RelatedProductsContainer = styled.div`
   .product {
     min-width: 180px;
     max-width: 250px;
-    height: fit-content;
+    height: 270px;
     .img-container {
       height: 120px;
     }
@@ -54,28 +54,34 @@ const RelatedProductsContainer = styled.div`
   }
 
   // responsive
-  @media screen and (min-width: 551px) and (max-width: 768px) {
+  @media screen and (min-width: 576px) and (max-width: 768px) {
     .product {
       max-width: fit-content;
-      height: fit-content;
+      height: 300px;
       .img-container {
-        height: 200px;
+        height: 150px;
       }
     }
     grid-template-columns: repeat(2, 1fr);
   }
 
   // responsive
-  @media screen and (min-width: 324px) and (max-width: 550px) {
+  @media screen and (min-width: 324px) and (max-width: 576px) {
     display: block;
     .product {
       min-width: 100%;
       max-width: 100%;
+      height: fit-content;
       display: flex;
       margin-bottom: 16px;
-      .img-container {
-        min-width: 150px;
-        height: 150px;
+      .product-cart-footer {
+        div:nth-child(1) {
+          display: flex;
+          column-gap: 32px;
+        }
+        .details {
+          display: none;
+        }
       }
     }
   }

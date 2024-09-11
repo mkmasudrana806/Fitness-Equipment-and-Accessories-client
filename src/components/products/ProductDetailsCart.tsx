@@ -4,24 +4,36 @@ import { Button, Input } from "antd";
 import { useState } from "react";
 
 const ProductDetailsCart = () => {
-  const [quantity, setQuantity] = useState(1);
+  const [quantity, setQuantity] = useState<number>(1);
 
+  // Handler to increment the quantity
   const increment = () => {
-    setQuantity((prev) => prev + 1);
+    setQuantity((prevQuantity) => prevQuantity + 1);
   };
 
+  // Handler to decrement the quantity
   const decrement = () => {
-    if (quantity > 1) {
-      setQuantity((prev) => prev - 1);
+    setQuantity((prevQuantity) => (prevQuantity > 1 ? prevQuantity - 1 : 1));
+  };
+
+  // Handler to allow manual input in the input field
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = Number(e.target.value);
+    if (value >= 1) {
+      setQuantity(value);
+    } else {
+      setQuantity(1); // Ensures value doesn't go below 1
     }
   };
 
   return (
     <ProductContainer>
       <ProductDetails>
+        {/* product image  */}
         <div>
           <img src={productImg} alt="" />
         </div>
+        {/* product information  */}
         <ProductInfo className="product-info">
           <h1 className="product-title">
             Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum
@@ -29,7 +41,7 @@ const ProductDetailsCart = () => {
           </h1>
           <p className="product-price">$500</p>
           <h3>Category</h3>
-          {/* product quantity count  */}
+
           <div
             style={{
               display: "flex",
@@ -38,10 +50,18 @@ const ProductDetailsCart = () => {
               marginTop: "16px",
             }}
           >
+            {/* product quantity count  */}
             <ProductQuantityCount>
-              <Button onClick={increment}>+</Button>
-              <Input type="number" min={1} value={quantity} name="" id="" />
               <Button onClick={decrement}>-</Button>
+              <Input
+                type="number"
+                min={1}
+                value={quantity}
+                onChange={handleInputChange}
+                style={{ width: "60px", textAlign: "center" }}
+              />
+
+              <Button onClick={increment}>+</Button>
             </ProductQuantityCount>
             <p style={{ color: "green" }}>In Stock</p>
           </div>
@@ -69,7 +89,9 @@ const ProductDetailsCart = () => {
 export default ProductDetailsCart;
 
 // product details
-const ProductContainer = styled.div``;
+const ProductContainer = styled.div`
+  margin-top: 16px;
+`;
 
 // product details
 const ProductDetails = styled.div`
@@ -138,10 +160,17 @@ const ProductQuantityCount = styled.div`
 // add to cart to buy now buttons
 const Buttons = styled.div`
   margin-top: 16px;
+
   span {
     color: white;
   }
   button:nth-child(1) {
     margin-right: 8px;
+  }
+  button {
+    background-color: #fc7f68;
+    &:hover {
+      background-color: #fd5334 !important;
+    }
   }
 `;

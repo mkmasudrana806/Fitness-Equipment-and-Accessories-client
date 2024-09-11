@@ -30,17 +30,13 @@ const HeaderCom = () => {
       </NavLink>
 
       {/* header nav links  */}
-      <HeaderNavlinks
-        className="nav-links"
-        size={"middle"}
-        style={{ marginLeft: "16px" }}
-      >
-        <p>Home</p>
-        <p>Products</p>
-        <p>Testimonials</p>
-        <p>About Us</p>
-        <p>Contact Us</p>
-        <p>Login</p>
+      <HeaderNavlinks className="nav-links" size={"middle"}>
+        <NavLink to={"/"}>Home</NavLink>
+        <NavLink to={"/products"}>Products</NavLink>
+        <NavLink to={"/testimonials"}>Testimonials</NavLink>
+        <NavLink to={"/about-us"}>About Us</NavLink>
+        <NavLink to={"/contact-us"}>Contact Us</NavLink>
+        <NavLink to={"/login"}>Login</NavLink>
       </HeaderNavlinks>
 
       {/* show drawer when screen is small  */}
@@ -57,12 +53,26 @@ const HeaderCom = () => {
         open={isDrawerVisible}
       >
         <Menu mode="vertical" defaultSelectedKeys={["home"]}>
-          <Menu.Item key="home">Home</Menu.Item>
-          <Menu.Item key="products">Products</Menu.Item>
-          <Menu.Item key="products">Testimonials</Menu.Item>
-          <Menu.Item key="products">About Us</Menu.Item>
-          <Menu.Item key="products">Contact Us</Menu.Item>
-          <Menu.Item key="login">Login</Menu.Item>
+          <Menu.Item key="home">
+            {" "}
+            <NavLink to={"/"}>Home</NavLink>
+          </Menu.Item>
+          <Menu.Item key="products">
+            <NavLink to={"/products"}>Products</NavLink>
+          </Menu.Item>
+          <Menu.Item key="testimonials">
+            <NavLink to={"/testimonials"}>Testimonials</NavLink>
+          </Menu.Item>
+          <Menu.Item key="about us">
+            {" "}
+            <NavLink to={"/about-us"}>About Us</NavLink>
+          </Menu.Item>
+          <Menu.Item key="contact us">
+            <NavLink to={"/contact-us"}>Contact Us</NavLink>
+          </Menu.Item>
+          <Menu.Item key="login">
+            <NavLink to={"/login"}>Login</NavLink>
+          </Menu.Item>
         </Menu>
       </Drawer>
     </Header>
@@ -82,7 +92,7 @@ const headerStyles: React.CSSProperties = {
 
 // header navlinks
 const HeaderNavlinks = styled(Space)`
-  p {
+  a {
     font-size: 1.2rem;
     cursor: pointer;
     &:hover {
