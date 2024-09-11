@@ -3,7 +3,6 @@ import { ArrowRightOutlined } from "@ant-design/icons";
 import { Rate } from "antd";
 import styled from "styled-components";
 
-
 const ProductCard = () => {
   return (
     <ProductCardContainer className="product">
@@ -16,7 +15,7 @@ const ProductCard = () => {
           amar sonar bangla ami tomay valobashi, chirodin tomar akash tomar
           batash amar prane
         </h1>
-        <div className="footer">
+        <div className="product-cart-footer">
           <div>
             <h1 style={{ color: "tomato", marginBottom: "4px" }}>$500</h1>
             <Rate disabled defaultValue={4} />
@@ -33,6 +32,7 @@ const ProductCard = () => {
 
 export default ProductCard;
 
+// product container
 const ProductCardContainer = styled.div`
   position: relative;
   max-width: 300px;
@@ -66,7 +66,7 @@ const ProductCardContainer = styled.div`
 
       font-weight: 500;
     }
-    .footer {
+    .product-cart-footer {
       position: absolute;
       width: 93%;
       bottom: 10px;
@@ -83,11 +83,16 @@ const ProductCardContainer = styled.div`
         box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px,
           rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
         cursor: pointer;
+        &:hover {
+          border: 1px solid #1563f3;
+          color: #1563f3;
+        }
       }
     }
   }
 `;
 
+// featured button
 const FeaturedButton = styled.button`
   background-image: linear-gradient(
     to right,

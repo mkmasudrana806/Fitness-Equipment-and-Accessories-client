@@ -23,8 +23,8 @@ export const router = createBrowserRouter([
         errorElement: <ErrorPage />,
       },
       {
-        path: "/admin",
-        element: <Homepage />,
+        path: "/products",
+        element: <ProductsPage />,
         errorElement: <ErrorPage />,
       },
       {

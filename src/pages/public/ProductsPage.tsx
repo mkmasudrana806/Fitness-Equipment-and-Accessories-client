@@ -5,6 +5,7 @@ import {
   Pagination,
   PaginationProps,
   Select,
+  Tooltip,
 } from "antd";
 import styled from "styled-components";
 import ProductFilters from "../../components/products/ProductFilters";
@@ -45,16 +46,21 @@ const ProductsPage = () => {
 
   return (
     <ProductPage>
+      {/* filters sidebar  */}
       <div className="filters-sidebar">
         <ProductFilters />
       </div>
+
       <Drawer title="Filters Products" onClose={onClose} open={open}>
         <ProductFilters />
       </Drawer>
       <Container>
         {/* product filters  */}
         <div className="product-fitlers">
-          <FilterButton onClick={showDrawer} icon={<FilterOutlined />} />
+          {/* filter button  */}
+          <Tooltip title="Filter Products">
+            <FilterButton onClick={showDrawer} icon={<FilterOutlined />} />
+          </Tooltip>
           <Input placeholder="Search..." />
           <Select
             defaultValue="Show"
@@ -91,6 +97,7 @@ const ProductsPage = () => {
           <ProductCard />
         </ProductsContainer>
 
+        {/* paginations  */}
         <Pagination
           style={{ margin: "30px 0px" }}
           align="center"
@@ -109,6 +116,7 @@ export default ProductsPage;
 const ProductPage = styled.div`
   display: flex;
   column-gap: 16px;
+
   .filters-sidebar {
     padding: 8px;
     width: 300px;
@@ -122,6 +130,7 @@ const ProductPage = styled.div`
   }
 `;
 
+// filter button show when mobile devices
 const FilterButton = styled(Button)`
   min-width: 32px;
   display: none;
@@ -132,7 +141,7 @@ const FilterButton = styled(Button)`
 // products filter + products container
 const Container = styled.div`
   width: 100%;
-  margin-top: 15px;
+  margin-top: 8px;
   .product-fitlers {
     display: flex;
     align-items: center;
@@ -146,4 +155,31 @@ const ProductsContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 16px;
+
+  @media screen and (min-width: 576px) and (max-width: 768px) {
+    grid-template-columns: repeat(2, 1fr);
+    justify-items: center;
+  }
+  @media screen and (max-width: 576px) {
+    grid-template-columns: repeat(2, 1fr);
+    justify-items: center;
+    .product {
+      max-width: 250px;
+      min-width: 180px;
+      height: 270px;
+      .img-container {
+        height: 120px;
+      }
+      .info {
+        .category {
+          font-size: 14px;
+          font-weight: 100;
+        }
+        .title {
+          font-size: 1rem;
+          font-weight: 500;
+        }
+      }
+    }
+  }
 `;
