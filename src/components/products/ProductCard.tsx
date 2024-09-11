@@ -3,6 +3,7 @@ import { ArrowRightOutlined } from "@ant-design/icons";
 import { Rate } from "antd";
 import styled from "styled-components";
 
+
 const ProductCard = () => {
   return (
     <ProductCardContainer className="product">
@@ -17,7 +18,7 @@ const ProductCard = () => {
         </h1>
         <div className="footer">
           <div>
-            <h1 style={{ color: "tomato" }}>$500</h1>
+            <h1 style={{ color: "tomato", marginBottom: "4px" }}>$500</h1>
             <Rate disabled defaultValue={4} />
           </div>
           <div className="details">
@@ -36,7 +37,7 @@ const ProductCardContainer = styled.div`
   position: relative;
   max-width: 300px;
   min-width: 250px;
-  height: 350px;
+  height: 360px;
   box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px;
   .img-container {
     width: 100%;
@@ -62,10 +63,13 @@ const ProductCardContainer = styled.div`
       overflow: hidden;
       text-overflow: ellipsis;
       margin-top: 5px;
+
       font-weight: 500;
     }
     .footer {
-      margin-top: 5px;
+      position: absolute;
+      width: 93%;
+      bottom: 10px;
       display: flex;
       justify-content: space-between;
       align-items: center;

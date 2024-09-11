@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import heroImg from "../assets/images/hero.jpg";
-import "./hero.css";
 import { CSSProperties } from "react";
 const overlayStyle: CSSProperties = {
   position: "absolute",
@@ -15,7 +14,7 @@ const overlayStyle: CSSProperties = {
 
 const Hero = () => {
   return (
-    <div style={{ width: "100%", marginTop: "32px", position: "relative" }}>
+    <div style={{ width: "100%", marginTop: "16px", position: "relative" }}>
       <img width={"100%"} src={heroImg} alt="" />
       <div className="hero-overlay" style={overlayStyle}></div>
       <HeroContent>
@@ -163,7 +162,7 @@ const ShopNowBtn = styled.div`
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: #0cf;
+    background-color: #ff6347d5;
     border-radius: 10rem;
     z-index: -2;
   }
@@ -174,7 +173,7 @@ const ShopNowBtn = styled.div`
     left: 0;
     width: 0%;
     height: 100%;
-    background-color: #008fb3;
+    background-color: #ff4727;
     transition: all 0.3s;
     border-radius: 10rem;
     z-index: -1;

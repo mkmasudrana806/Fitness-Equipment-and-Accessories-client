@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Col } from "antd";
- 
 
 interface OverlayImageCardProps {
   imageUrl: string;

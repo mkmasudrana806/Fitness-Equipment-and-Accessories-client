@@ -12,7 +12,6 @@ import gymImg10 from "../assets/images/gymPerson8.png";
 import gymImg11 from "../assets/images/gymPerson10.png";
 import gymImg12 from "../assets/images/gymPerson12.png";
 
-
 const SuccessCustomersGallery = () => {
   return (
     <CustomersGallery>
@@ -54,7 +53,6 @@ const SuccessCustomersGallery = () => {
         <div className="gallery-item">
           <img src={gymImg12} alt="Image 12" />
         </div>
-      
       </Galleries>
     </CustomersGallery>
   );
@@ -82,5 +80,13 @@ const Galleries = styled.div`
   .gallery-item img {
     width: 100%;
     display: block;
+  }
+
+  @media screen and (max-width: 768px) {
+    column-count: 2;
+    column-gap: 8px;
+    .gallery-item {
+      margin-bottom: 8px;
+    }
   }
 `;

@@ -14,7 +14,7 @@ const Benefits = () => {
   return (
     <BenefitsContainer>
       {/* benefit gallery  */}
-      <BenefitsGallery>
+      <BenefitsGallery className="benefits-gallery">
         <div className="image image-1">
           <img src={benefitGallery1} alt="" />
         </div>
@@ -33,9 +33,9 @@ const Benefits = () => {
       <div className="benefits">
         <h1 style={{ fontSize: "2.5rem", margin: "0px" }}>Benfits </h1>
         <p style={{ fontSize: "1rem", margin: "16px 0px 32px 0px" }}>
-          Discover high-quality fitness equipment and accessories designed for
-          all fitness levels. Our durable, ergonomic products offer affordable
-          prices, compact designs help you achieve your fitness goals.
+          Regular fitness improves cardiovascular health, boosts energy,
+          enhances mood, strengthens muscles, aids weight management, and
+          promotes overall well-being.
         </p>
         <BenefitLists>
           {/* benefit item  */}
@@ -78,6 +78,7 @@ const Benefits = () => {
 
 export default Benefits;
 
+// benefits container
 const BenefitsContainer = styled.div`
   margin-top: 50px;
   display: flex;
@@ -89,11 +90,17 @@ const BenefitsContainer = styled.div`
       width: 100%;
     }
   }
+  @media screen and (max-width: 992px) {
+    flex-direction: column;
+    .benefits, .benefits-gallery {
+      width: 100%;
+    }
+  }
 `;
 
+// image gallery
 const BenefitsGallery = styled.div`
   width: 50%;
-
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 16px;
@@ -121,6 +128,7 @@ const BenefitsGallery = styled.div`
   }
 `;
 
+// benefits lists
 const BenefitLists = styled.div`
   .list-item {
     display: flex;
