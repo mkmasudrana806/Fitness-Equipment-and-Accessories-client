@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import { SearchOutlined } from "@ant-design/icons";
 import type { InputRef, TableColumnType } from "antd";
 import { Avatar, Button, Input, Space, Table, Tooltip } from "antd";
@@ -6,6 +6,7 @@ import type { FilterDropdownProps } from "antd/es/table/interface";
 import Highlighter from "react-highlight-words";
 import { EditFilled, DeleteFilled, EyeFilled } from "@ant-design/icons";
 import styled from "styled-components";
+import { useMediaQuery } from "react-responsive";
 
 // data type for the table
 interface DataType {
@@ -16,11 +17,13 @@ interface DataType {
 }
 type DataIndex = keyof DataType;
 
+// product component page
 const ProductsManagementPage = () => {
   const [searchText, setSearchText] = useState("");
   const [searchedColumn, setSearchedColumn] = useState("");
   const searchInput = useRef<InputRef>(null);
-  const [isMobile, setIsMobile] = useState(false);
+
+  const isMobileView = useMediaQuery({ query: "(max-width: 600px)" });
 
   // handle search
   const handleSearch = (
@@ -168,26 +171,12 @@ const ProductsManagementPage = () => {
     console.log("View product with id:", _id);
   };
 
-  // Detect window resize and check for mobile screen size
-  useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.innerWidth <= 768);
-    };
-
-    // Initialize and listen for resize events
-    window.addEventListener("resize", handleResize);
-    handleResize(); // Call once on load
-
-    // Cleanup event listener on unmount
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
-
   return (
     <Table
       style={{ transition: "0.3s" }}
       dataSource={data}
       pagination={false}
-      size={isMobile ? "small" : "large"}
+      size={isMobileView ? "small" : "large"}
       scroll={{ x: 576, y: 500 }}
     >
       <Table.Column

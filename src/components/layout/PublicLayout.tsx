@@ -3,7 +3,7 @@ import "../../styles/publicLayout.css";
 import HeaderCom from "../Header";
 import { Outlet } from "react-router-dom";
 import Footer from "../Footer";
-import ProductsManagementPage from "../../pages/admin/ProductsManagementPage";
+import AboutUs from "../../pages/AboutUs";
 
 const { Content } = Layout;
 
@@ -13,7 +13,7 @@ const PublicLayout = () => {
       <HeaderCom />
       <Content style={{ backgroundColor: "white" }}>
         {/* <Outlet /> */}
-        <ProductsManagementPage />
+        <AboutUs />
       </Content>
       <Footer />
     </Layout>
