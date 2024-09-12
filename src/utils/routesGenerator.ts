@@ -8,6 +8,11 @@ const routesGenerator = (paths: TUserPaths[]) => {
         path: item.path,
         element: item.element,
       });
+    } else if (item.name && item.index) {
+      acc.push({
+        index: item.index,
+        element: item.element,
+      });
     } else if (item.children) {
       item.children.forEach((child) =>
         acc.push({

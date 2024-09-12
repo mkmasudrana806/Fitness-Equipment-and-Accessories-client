@@ -1,13 +1,7 @@
 import { Button, Result } from "antd";
-import { useEffect } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 const RouteNotFound = () => {
-  const navigate = useNavigate();
-  useEffect(() => {
-    navigate("/not-found");
-  }, [navigate]);
-
   return (
     <Result
       status="404"

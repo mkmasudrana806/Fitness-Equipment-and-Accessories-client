@@ -1,8 +1,9 @@
 import { Avatar, Badge, Space } from "antd";
 import { LogoutOutlined, UserOutlined } from "@ant-design/icons";
 import styled from "styled-components";
-import { NavLink } from "react-router-dom";
-import { useAppSelector } from "../../redux/hooks";
+import { NavLink, useNavigate } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import { logout } from "../../redux/features/auth/authSlice";
 
 type THeaderNavLinks = {
   showProfileDrawer: any;
@@ -10,9 +11,18 @@ type THeaderNavLinks = {
 
 const HeaderNavlinks = ({ showProfileDrawer }: THeaderNavLinks) => {
   // redux
+  const dispatch = useAppDispatch();
   const { user } = useAppSelector((state) => state.auth);
 
   // react
+  const navigate = useNavigate();
+
+  // handle logout
+  const handleLogout = () => {
+    dispatch(logout());
+    navigate("/");
+  };
+
   return (
     <HeaderNavLinks
       style={{ alignItems: "center" }}
@@ -30,7 +40,7 @@ const HeaderNavlinks = ({ showProfileDrawer }: THeaderNavLinks) => {
       <NavLink to={"/about-us"}>About Us</NavLink>
       {user?.role ? (
         <>
-          <LogoutOutlined className="logout-btn" />
+          <LogoutOutlined onClick={handleLogout} className="logout-btn" />
           <Avatar
             onClick={showProfileDrawer}
             className="user-profile-btn"

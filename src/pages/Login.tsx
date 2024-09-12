@@ -2,10 +2,9 @@ import { useLoginMutation } from "../redux/features/auth/authApi";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { setUser, TUser } from "../redux/features/auth/authSlice";
 import verifyToken from "../utils/verifyToken";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { useEffect, useState } from "react";
-import { message } from "antd";
 
 type TUserLogin = {
   email: string;
@@ -25,6 +24,10 @@ const Login = () => {
   // react
   const [loginData, setLoginData] = useState<TUserLogin>(initialLoginState);
   const navigate = useNavigate();
+  const location = useLocation();
+
+  // get previous path which user comes from
+  const from = location?.state?.from || "/";
 
   // handle login
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -39,8 +42,7 @@ const Login = () => {
         id: toastLoginId,
         duration: 2000,
       });
-      // navigate(`/${user.role}/dashboard`);
-      navigate("/");
+      navigate(from, { replace: true });
     } catch (error) {
       toast.error("Error while logging..." + error, { id: toastLoginId });
     }
@@ -49,11 +51,10 @@ const Login = () => {
   // prevent login page open if user already logged in
   useEffect(() => {
     if (user?.userId) {
-      message.info("You are already logged in!");
-      navigate("/");
+      navigate(from, { replace: true });
     }
-  }, [user?.userId, navigate]);
-  
+  }, [from, navigate, user?.userId]);
+
   return (
     <div className="login-form">
       <div className="title">Login</div>

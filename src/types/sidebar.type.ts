@@ -2,7 +2,8 @@ import { ReactNode } from "react";
 
 // each route
 export type TRoute = {
-  path: string;
+  path?: string;
+  index?: boolean;
   element: ReactNode;
 };
 
@@ -15,8 +16,9 @@ export type TSidebarItem = {
 
 // paths
 export type TUserPaths = {
-  name: string;
+  name?: string;
   path?: string;
+  index?: boolean;
   element?: ReactNode;
   children?: TUserPaths[];
 };

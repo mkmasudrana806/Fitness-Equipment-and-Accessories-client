@@ -6,6 +6,7 @@ import { NavLink } from "react-router-dom";
 import HeaderNavlinks from "./HeaderNavlinks";
 import HeaderNavlinkDrawer from "./HeaderNavlinkDrawer";
 import UserProfileDrawer from "./UserProfileDrawer";
+import styled from "styled-components";
 const { Header } = Layout;
 
 const HeaderCom = () => {
@@ -35,17 +36,10 @@ const HeaderCom = () => {
 
   return (
     <Header style={headerStyles}>
-      <NavLink
-        to={"/"}
-        style={{ display: "flex", alignItems: "center", columnGap: "16px" }}
-      >
-        <img
-          src={logo}
-          style={{ height: "48px", minWidth: "48px", maxWidth: "48px" }}
-          alt=""
-        />
-        <h1 style={{ fontSize: "1.5rem" }}> GymBolt</h1>
-      </NavLink>
+      <HeaderLogo to={"/"}>
+        <img src={logo} alt="" />
+        <h1> GymBolt</h1>
+      </HeaderLogo>
 
       {/* header nav links  */}
       <HeaderNavlinks showProfileDrawer={showProfileDrawer} />
@@ -83,3 +77,18 @@ const headerStyles: React.CSSProperties = {
   padding: "0px",
   backgroundColor: "white",
 };
+
+// header logo
+const HeaderLogo = styled(NavLink)`
+  display: flex;
+  align-items: center;
+  column-gap: 16px;
+  img {
+    height: 32px;
+    min-width: 32px;
+    max-width: 32px;
+  }
+  h1 {
+    font-size: 1.5rem;
+  }
+`;

@@ -1,6 +1,4 @@
 import { createBrowserRouter } from "react-router-dom";
-import App from "../App";
-
 import { adminPaths } from "./admin.routes";
 import { userPaths } from "./user.routes";
 import routesGenerator from "../utils/routesGenerator";
@@ -9,89 +7,72 @@ import Homepage from "../pages/public/Homepage";
 import ProductsPage from "../pages/public/ProductsPage";
 import ProductDetailsPage from "../pages/public/ProductDetailsPage";
 import AboutUs from "../pages/public/AboutUs";
-import CartsPage from "../pages/user/CartsPage";
-import CheckOutPage from "../pages/user/CheckOutPage";
-import PurchaseSuccessMessage from "../pages/resultMessage/PurchaseSuccessMessage";
-import ProductsManagementPage from "../pages/admin/ProductsManagementPage";
-import AddProduct from "../components/products/AddProduct";
 import AuthContainer from "../pages/AuthContainer";
 import RouteNotFound from "../pages/resultMessage/RouteNotFound";
+import DashboardLayout from "../components/layout/DashboardLayout";
+import AdminRoute from "./AdminProtectedRoute";
+import UserRoute from "./UserProtectedRoute";
+import UnauthorizedAccess from "../pages/resultMessage/UnauthorizedAccess";
 
 export const router = createBrowserRouter([
   {
     path: "/",
     element: <PublicLayout />,
-    errorElement: <RouteNotFound />,
     children: [
       {
-        path: "/",
+        index: true,
         element: <Homepage />,
-        errorElement: <RouteNotFound />,
       },
       {
-        path: "/products",
+        path: "products",
         element: <ProductsPage />,
-        errorElement: <RouteNotFound />,
       },
       {
-        path: "/product/1",
+        path: "product/1",
         element: <ProductDetailsPage />,
-        errorElement: <RouteNotFound />,
       },
       {
-        path: "/products",
+        path: "products",
         element: <ProductsPage />,
-        errorElement: <RouteNotFound />,
       },
       {
-        path: "/products-management",
-        element: <ProductsManagementPage />,
-        errorElement: <RouteNotFound />,
-      },
-      {
-        path: "/add-product",
-        element: <AddProduct />,
-        errorElement: <RouteNotFound />,
-      },
-      {
-        path: "/carts",
-        element: <CartsPage />,
-        errorElement: <RouteNotFound />,
-      },
-      {
-        path: "/checkout",
-        element: <CheckOutPage />,
-        errorElement: <RouteNotFound />,
-      },
-      {
-        path: "/purchase-success",
-        element: <PurchaseSuccessMessage />,
-        errorElement: <RouteNotFound />,
-      },
-      {
-        path: "/about-us",
+        path: "about-us",
         element: <AboutUs />,
-        errorElement: <RouteNotFound />,
       },
       {
-        path: "/login",
+        path: "login",
         element: <AuthContainer />,
-        errorElement: <RouteNotFound />,
       },
       {
-        path: "/not-found",
-        element: <RouteNotFound />,
+        path: "forbidden",
+        element: <UnauthorizedAccess />,
       },
+      { path: "*", element: <RouteNotFound /> },
     ],
   },
   {
     path: "/admin",
-    element: <App />,
-    children: routesGenerator(adminPaths),
+    element: (
+      <AdminRoute>
+        <DashboardLayout />
+      </AdminRoute>
+    ),
+    children: [
+      ...routesGenerator(adminPaths),
+      { path: "*", element: <RouteNotFound /> },
+    ],
   },
   {
     path: "/user",
-    element: <App />,
-    children: routesGenerator(userPaths),
+    element: (
+      <UserRoute>
+        <DashboardLayout />
+      </UserRoute>
+    ),
+    children: [
+      ...routesGenerator(userPaths),
+      { path: "*", element: <RouteNotFound /> },
+    ],
   },
+  { path: "*", element: <RouteNotFound /> },
 ]);

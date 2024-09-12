@@ -1,8 +1,12 @@
 import { Menu } from "antd";
 import Sider from "antd/es/layout/Sider";
-import sidebarGenerator from "../utils/sidebarGenerator";
-import { adminPaths } from "../routes/admin.routes";
-import { userPaths } from "../routes/user.routes";
+import sidebarGenerator from "../../utils/sidebarGenerator";
+import { adminPaths } from "../../routes/admin.routes";
+import { userPaths } from "../../routes/user.routes";
+import { NavLink } from "react-router-dom";
+import logo from "../../assets/logo.png";
+import styled from "styled-components";
+import { useAppSelector } from "../../redux/hooks";
 
 const userRole = {
   admin: "admin",
@@ -10,9 +14,8 @@ const userRole = {
 };
 
 const Sidebar = () => {
-  // const user = useAppSelector((state) => state.auth.user);
-  // console.log("user: ", user);
-  const user = { role: "user" };
+  const user = useAppSelector((state) => state.auth.user);
+
   let sidebarItems;
   switch (user!.role) {
     case userRole.admin:
@@ -26,6 +29,7 @@ const Sidebar = () => {
   }
   return (
     <Sider
+      style={{ minHeight: "100vh", backgroundColor: "white" }}
       breakpoint="lg"
       collapsedWidth="0"
       onBreakpoint={(broken) => {
@@ -35,18 +39,12 @@ const Sidebar = () => {
         console.log(collapsed, type);
       }}
     >
-      <h3
-        style={{
-          color: "white",
-          display: "flex",
-          justifyContent: "center",
-          padding: "10px",
-        }}
-      >
-        GymBolt
-      </h3>
+      <HeaderLogo to={"/"}>
+        <img src={logo} alt="" />
+        <h1> GymBolt</h1>
+      </HeaderLogo>
       <Menu
-        theme="dark"
+        style={{ height: "100%" }}
         mode="inline"
         defaultSelectedKeys={["4"]}
         items={sidebarItems}
@@ -56,3 +54,19 @@ const Sidebar = () => {
 };
 
 export default Sidebar;
+
+// header logo
+const HeaderLogo = styled(NavLink)`
+  display: flex;
+  align-items: center;
+  column-gap: 16px;
+  margin-top: 16px;
+  img {
+    height: 32px;
+    min-width: 32px;
+    max-width: 32px;
+  }
+  h1 {
+    font-size: 1.5rem;
+  }
+`;
