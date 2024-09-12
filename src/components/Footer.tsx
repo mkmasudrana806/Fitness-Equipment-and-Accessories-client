@@ -19,10 +19,10 @@ const Footer = () => {
               <NavLink to={"/about-us"}>About Us</NavLink>
             </li>
             <li>
-              <NavLink to={"/testimonials"}>Testimonials</NavLink>
+              <NavLink to={"/about-us#feedback"}>Customer's Feedback</NavLink>
             </li>
             <li>
-              <a href="#">Customers</a>
+              <NavLink to={"/about-us#contact"}>Contact Us</NavLink>
             </li>
             <li>
               <NavLink to={"/products"}>Products</NavLink>
@@ -33,22 +33,19 @@ const Footer = () => {
           <h4>Explore</h4>
           <ul className="links">
             <li>
-              <a href="#">New Arrivals</a>
-            </li>
-            <li>
               <NavLink to={"/products"}>Featured Products</NavLink>
             </li>
             <li>
-              <a href="#">Popular Reviews</a>
+              <NavLink to={"/popular-reviews"}>Popular Reviews</NavLink>
             </li>
             <li>
-              <a href="#">Special Offers</a>
+              <NavLink to={"/special-offers"}>Special Offers</NavLink>
             </li>
             <li>
-              <a href="#">New Uploads</a>
+              <NavLink to={"/new-products"}>New Uploads</NavLink>
             </li>
             <li>
-              <a href="#">Payment Methods</a>
+              <NavLink to={"/payment-methods"}>Payment Methods</NavLink>
             </li>
           </ul>
         </div>
@@ -56,19 +53,19 @@ const Footer = () => {
           <h4>Legal</h4>
           <ul className="links">
             <li>
-              <a href="#">Customer Agreement</a>
+              <NavLink to={"/customer-agreement"}>Customer Agreement</NavLink>
             </li>
             <li>
-              <a href="#">Privacy Policy</a>
+              <NavLink to={"/privacy-policy"}>Privacy Policy</NavLink>
             </li>
             <li>
-              <a href="#">GDPR</a>
+              <NavLink to={"/gdpr"}>GDPR</NavLink>
             </li>
             <li>
-              <a href="#">Security</a>
+              <NavLink to={"/security"}>Security</NavLink>
             </li>
             <li>
-              <a href="#">Terms & Conditions</a>
+              <NavLink to={"/terms-and-conditions"}>Terms & Conditions</NavLink>
             </li>
           </ul>
         </div>

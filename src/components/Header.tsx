@@ -1,4 +1,4 @@
-import { Button, Drawer, Layout, Menu, Space } from "antd";
+import { Badge, Button, Drawer, Layout, Menu, Space } from "antd";
 import React, { useState } from "react";
 import logo from "../assets/logo.png";
 import { MenuOutlined } from "@ant-design/icons";
@@ -37,9 +37,14 @@ const HeaderCom = () => {
       <HeaderNavlinks className="nav-links" size={"middle"}>
         <NavLink to={"/"}>Home</NavLink>
         <NavLink to={"/products"}>Products</NavLink>
-        <NavLink to={"/testimonials"}>Testimonials</NavLink>
+        {user?.role === "user" && (
+          <Badge offset={[5, 1]} color="#E15B40" count={5}>
+            <NavLink to={"/carts"}>Carts</NavLink>
+          </Badge>
+        )}
+
+        <NavLink to={"/about-us#feedback"}>Testimonials</NavLink>
         <NavLink to={"/about-us"}>About Us</NavLink>
-        <NavLink to={"/contact-us"}>Contact Us</NavLink>
         {!user?.role && <NavLink to={"/login"}>Login</NavLink>}
       </HeaderNavlinks>
 
@@ -64,6 +69,13 @@ const HeaderCom = () => {
           <Menu.Item key="products">
             <NavLink to={"/products"}>Products</NavLink>
           </Menu.Item>
+          {user?.role === "user" && (
+            <Menu.Item key="products">
+              <Badge offset={[5, 1]} color="#E15B40" count={5}>
+                <NavLink to={"/carts"}>Carts</NavLink>
+              </Badge>
+            </Menu.Item>
+          )}
           <Menu.Item key="testimonials">
             <NavLink to={"/testimonials"}>Testimonials</NavLink>
           </Menu.Item>

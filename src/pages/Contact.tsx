@@ -5,6 +5,15 @@ import TextArea from "antd/es/input/TextArea";
 const Contact = () => {
   return (
     <div className="contact_us_green">
+      <h1
+        style={{
+          fontSize: "2.5rem",
+          marginBottom: "32px",
+          textAlign: "center",
+        }}
+      >
+        Get in touch
+      </h1>
       <div className="responsive-container-block big-container">
         <div className="responsive-container-block container">
           <div
@@ -39,7 +48,7 @@ const Contact = () => {
                   </div>
                   <div className="responsive-cell-block last-name wk-desk-6 wk-ipadp-6 wk-tab-12 wk-mobile-12">
                     <p className="text-blk input-title">Phone Number</p>
-                    <Input type="number" name="FirstName" />
+                    <Input type="number" name="PhoneNumber" />
                   </div>
                   <div
                     className="responsive-cell-block wk-tab-12 wk-mobile-12 wk-desk-12 wk-ipadp-12"
@@ -87,14 +96,14 @@ const Contact = () => {
                       className="contact-svg"
                       src="https://workik-widget-assets.s3.amazonaws.com/widget-assets/images/ET22.jpg"
                     />
-                    <p className="contact-text">hello@workik.com</p>
+                    <p className="contact-text">gymbolt@gmail.com</p>
                   </div>
                   <div className="mail text-box">
                     <img
                       className="contact-svg"
                       src="https://workik-widget-assets.s3.amazonaws.com/widget-assets/images/ET23.jpg"
                     />
-                    <p className="contact-text">102 street, y cross 485656</p>
+                    <p className="contact-text">102 street,dhaka</p>
                   </div>
                 </div>
                 <div className="social-media-links">
