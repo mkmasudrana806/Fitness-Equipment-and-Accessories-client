@@ -1,17 +1,26 @@
-import { Avatar, Divider, Empty, List } from "antd";
+import { Collapse, CollapseProps, Divider, Empty } from "antd";
 
-const data = [
+const text = `
+  A dog is a type of domesticated animal.
+  Known for its loyalty and faithfulness,
+  it can be found as a welcome guest in many households across the world.
+`;
+
+const items: CollapseProps["items"] = [
   {
-    title: "User 1",
+    key: "1",
+    label: "This is panel header 1",
+    children: <p>{text}</p>,
   },
   {
-    title: "User 2",
+    key: "2",
+    label: "This is panel header 2",
+    children: <p>{text}</p>,
   },
   {
-    title: "User 3",
-  },
-  {
-    title: "User 4",
+    key: "3",
+    label: "This is panel header 3",
+    children: <p>{text}</p>,
   },
 ];
 
@@ -23,24 +32,7 @@ const ProductFAQ = () => {
       {/* when no reviews, show empty message  */}
       <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
       {/* show reviews when it has  */}
-      <List
-        itemLayout="horizontal"
-        dataSource={data}
-        renderItem={(item, index) => (
-          <List.Item>
-            <List.Item.Meta
-              avatar={
-                <Avatar
-                  src={`https://api.dicebear.com/7.x/miniavs/svg?seed=${index}`}
-                />
-              }
-              title={<a href="https://ant.design">{item.title}</a>}
-              description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste inventore vel dolore nesciunt eius maiores!"
-              children="children"
-            />
-          </List.Item>
-        )}
-      />
+      <Collapse accordion items={items} defaultActiveKey={["1"]} />
     </div>
   );
 };

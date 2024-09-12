@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Col } from "antd";
+import { NavLink } from "react-router-dom";
 
 interface OverlayImageCardProps {
   imageUrl: string;
@@ -12,24 +13,26 @@ const Category: React.FC<OverlayImageCardProps> = ({
 }) => {
   const [isHovered, setIsHovered] = useState(false);
   return (
-    <Col
-      style={categoryStyle}
-      onMouseOver={() => setIsHovered(true)}
-      onMouseOut={() => setIsHovered(false)}
-    >
-      <div style={imageContainerStyle}>
-        <img
-          style={{
-            ...imageStyle,
-            transform: isHovered ? "scale(1.05)" : "scale(1)",
-          }}
-          src={imageUrl}
-          alt={categoryName}
-        />
-        <div style={imageOverlayStyle} />
-        <div style={categoryTitleStyle}>{categoryName}</div>
-      </div>
-    </Col>
+    <NavLink to={"/products"}>
+      <Col
+        style={categoryStyle}
+        onMouseOver={() => setIsHovered(true)}
+        onMouseOut={() => setIsHovered(false)}
+      >
+        <div style={imageContainerStyle}>
+          <img
+            style={{
+              ...imageStyle,
+              transform: isHovered ? "scale(1.05)" : "scale(1)",
+            }}
+            src={imageUrl}
+            alt={categoryName}
+          />
+          <div style={imageOverlayStyle} />
+          <div style={categoryTitleStyle}>{categoryName}</div>
+        </div>
+      </Col>
+    </NavLink>
   );
 };
 
@@ -40,7 +43,7 @@ const categoryStyle: React.CSSProperties = {
   width: " 300px",
   height: " 300px",
   overflow: " hidden",
-  borderRadius: " 8px",
+  borderRadius: "8px",
 };
 
 const imageContainerStyle: React.CSSProperties = {

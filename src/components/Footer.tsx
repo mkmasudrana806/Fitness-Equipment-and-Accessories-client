@@ -6,6 +6,7 @@ import {
   TwitterOutlined,
 } from "@ant-design/icons";
 import "../styles/footer.css";
+import { NavLink } from "react-router-dom";
 
 const Footer = () => {
   return (
@@ -15,19 +16,16 @@ const Footer = () => {
           <h4>Info</h4>
           <ul className="links">
             <li>
-              <a href="#">About Us</a>
+              <NavLink to={"/about-us"}>About Us</NavLink>
             </li>
             <li>
-              <a href="#">Compressions</a>
+              <NavLink to={"/testimonials"}>Testimonials</NavLink>
             </li>
             <li>
               <a href="#">Customers</a>
             </li>
             <li>
-              <a href="#">Service</a>
-            </li>
-            <li>
-              <a href="#">Collection</a>
+              <NavLink to={"/products"}>Products</NavLink>
             </li>
           </ul>
         </div>
@@ -35,22 +33,22 @@ const Footer = () => {
           <h4>Explore</h4>
           <ul className="links">
             <li>
-              <a href="#">Free Designs</a>
+              <a href="#">New Arrivals</a>
             </li>
             <li>
-              <a href="#">Latest Designs</a>
+              <NavLink to={"/products"}>Featured Products</NavLink>
             </li>
             <li>
-              <a href="#">Themes</a>
+              <a href="#">Popular Reviews</a>
             </li>
             <li>
-              <a href="#">Popular Designs</a>
-            </li>
-            <li>
-              <a href="#">Art Skills</a>
+              <a href="#">Special Offers</a>
             </li>
             <li>
               <a href="#">New Uploads</a>
+            </li>
+            <li>
+              <a href="#">Payment Methods</a>
             </li>
           </ul>
         </div>
@@ -70,10 +68,7 @@ const Footer = () => {
               <a href="#">Security</a>
             </li>
             <li>
-              <a href="#">Testimonials</a>
-            </li>
-            <li>
-              <a href="#">Media Kit</a>
+              <a href="#">Terms & Conditions</a>
             </li>
           </ul>
         </div>
@@ -95,6 +90,9 @@ const Footer = () => {
           </div>
         </div>
       </div>
+      <p style={{ textAlign: "center", marginBottom: "20px " }}>
+        © {new Date().getFullYear()} GymBolt. All rights reserved.
+      </p>
     </footer>
   );
 };

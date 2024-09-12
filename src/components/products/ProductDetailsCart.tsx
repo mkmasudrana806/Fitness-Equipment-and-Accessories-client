@@ -2,6 +2,7 @@ import styled from "styled-components";
 import productImg from "../../assets/images/benefit4.png";
 import { Button, Input } from "antd";
 import { useState } from "react";
+import { NavLink } from "react-router-dom";
 
 const ProductDetailsCart = () => {
   const [quantity, setQuantity] = useState<number>(1);
@@ -71,9 +72,11 @@ const ProductDetailsCart = () => {
             <Button type="primary" shape="round">
               Add to cart
             </Button>
-            <Button type="primary" shape="round">
-              Buy Now
-            </Button>
+            <NavLink to={"/checkout"}>
+              <Button type="primary" shape="round">
+                Buy Now
+              </Button>
+            </NavLink>
           </Buttons>
         </ProductInfo>
       </ProductDetails>

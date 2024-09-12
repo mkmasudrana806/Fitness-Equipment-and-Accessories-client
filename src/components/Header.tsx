@@ -4,11 +4,15 @@ import logo from "../assets/logo.png";
 import { MenuOutlined } from "@ant-design/icons";
 import styled from "styled-components";
 import { NavLink } from "react-router-dom";
+import { useAppSelector } from "../redux/hooks";
 
 const { Header } = Layout;
 
 const HeaderCom = () => {
+  // redux
+  const { user } = useAppSelector((state) => state.auth);
   const [isDrawerVisible, setIsDrawerVisible] = useState(false);
+  // react
   const showDrawer = () => {
     setIsDrawerVisible(true);
   };
@@ -36,7 +40,7 @@ const HeaderCom = () => {
         <NavLink to={"/testimonials"}>Testimonials</NavLink>
         <NavLink to={"/about-us"}>About Us</NavLink>
         <NavLink to={"/contact-us"}>Contact Us</NavLink>
-        <NavLink to={"/login"}>Login</NavLink>
+        {!user?.role && <NavLink to={"/login"}>Login</NavLink>}
       </HeaderNavlinks>
 
       {/* show drawer when screen is small  */}
@@ -70,9 +74,11 @@ const HeaderCom = () => {
           <Menu.Item key="contact us">
             <NavLink to={"/contact-us"}>Contact Us</NavLink>
           </Menu.Item>
-          <Menu.Item key="login">
-            <NavLink to={"/login"}>Login</NavLink>
-          </Menu.Item>
+          {!user?.role && (
+            <Menu.Item key="login">
+              <NavLink to={"/login"}>Login</NavLink>
+            </Menu.Item>
+          )}
         </Menu>
       </Drawer>
     </Header>

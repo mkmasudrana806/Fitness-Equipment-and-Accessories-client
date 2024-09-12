@@ -1,6 +1,7 @@
 import featuredImg from "../../assets/images/featured.png";
 import { ArrowRightOutlined } from "@ant-design/icons";
 import { Rate } from "antd";
+import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 
 const ProductCard = () => {
@@ -10,19 +11,21 @@ const ProductCard = () => {
         <img src={featuredImg} alt="" />
       </div>
       <div className="info">
-        <h1 className="category">Dumble</h1>
-        <h1 className="title">
+        <NavLink to={"/products"} className="category">
+          Dumble
+        </NavLink>
+        <NavLink to={"/product/1"} className="title">
           amar sonar bangla ami tomay valobashi, chirodin tomar akash tomar
           batash amar prane
-        </h1>
+        </NavLink>
         <div className="product-cart-footer">
           <div>
             <h1 style={{ color: "tomato", marginBottom: "4px" }}>$500</h1>
             <Rate disabled defaultValue={4} />
           </div>
-          <div className="details">
+          <NavLink to={"/product/1"} className="details">
             <ArrowRightOutlined />
-          </div>
+          </NavLink>
         </div>
       </div>
       <FeaturedButton className="featured-btn">Featured</FeaturedButton>
@@ -53,6 +56,10 @@ const ProductCardContainer = styled.div`
     padding: 10px;
     .category {
       font-weight: 600;
+      &:hover {
+        text-decoration: underline;
+        color: #ff8069;
+      }
     }
     .title {
       font-size: 1.3rem;
@@ -63,8 +70,11 @@ const ProductCardContainer = styled.div`
       overflow: hidden;
       text-overflow: ellipsis;
       margin-top: 5px;
-
       font-weight: 500;
+      &:hover {
+        text-decoration: underline;
+        color: #ff8069;
+      }
     }
     .product-cart-footer {
       position: absolute;

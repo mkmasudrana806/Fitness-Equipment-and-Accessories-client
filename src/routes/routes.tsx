@@ -17,6 +17,8 @@ import CheckOutPage from "../pages/user/CheckOutPage";
 import PurchaseSuccessMessage from "../components/PurchaseSuccessMessage";
 import ProductsManagementPage from "../pages/admin/ProductsManagementPage";
 import AddProduct from "../components/products/AddProduct";
+import AuthContainer from "../pages/AuthContainer";
+import Contact from "../pages/Contact";
 
 export const router = createBrowserRouter([
   {
@@ -74,6 +76,17 @@ export const router = createBrowserRouter([
         element: <AboutUs />,
         errorElement: <ErrorPage />,
       },
+
+      {
+        path: "/login",
+        element: <AuthContainer />,
+        errorElement: <ErrorPage />,
+      },
+      {
+        path: "/contact",
+        element: <Contact />,
+        errorElement: <ErrorPage />,
+      },
     ],
   },
   {
@@ -85,13 +98,5 @@ export const router = createBrowserRouter([
     path: "/user",
     element: <App />,
     children: routesGenerator(userPaths),
-  },
-  {
-    path: "/login",
-    element: <Login />,
-  },
-  {
-    path: "/register",
-    element: <Register />,
   },
 ]);

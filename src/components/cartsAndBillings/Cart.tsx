@@ -25,7 +25,7 @@ const Cart = () => {
         <div className="img-container">
           <img src={cartImg} alt="" />
         </div>
-        <div>
+        <div className="cart-info">
           <NavLink
             style={{ fontSize: "1.1rem", fontWeight: "bold" }}
             to={"/product/1"}
@@ -67,6 +67,14 @@ const Product = styled.div`
   margin-bottom: 16px;
   box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px;
   padding-right: 18px;
+  .cart-info {
+    a {
+      &:hover {
+        text-decoration: underline;
+        color: #ff8069;
+      }
+    }
+  }
   .delete-cart {
     cursor: pointer;
     background-color: #f79f9f;

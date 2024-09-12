@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import heroImg from "../assets/images/hero.jpg";
 import { CSSProperties } from "react";
+import { NavLink } from "react-router-dom";
 const overlayStyle: CSSProperties = {
   position: "absolute",
   top: 0,
@@ -23,7 +24,10 @@ const Hero = () => {
         </h1>
         <h2 className="sign-painted">CLUB SERIES+</h2>
         <h2 className="outlined-3d">CARDIO EQUIPMENT</h2>
-        <ShopNowBtn className="shop-btn">Shop Now</ShopNowBtn>
+        <NavLink to={"/products"}>
+          {" "}
+          <ShopNowBtn className="shop-btn">Shop Now</ShopNowBtn>
+        </NavLink>
       </HeroContent>
     </div>
   );
