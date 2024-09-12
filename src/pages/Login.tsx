@@ -1,11 +1,11 @@
-
 import { useLoginMutation } from "../redux/features/auth/authApi";
-import { useAppDispatch } from "../redux/hooks";
+import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { setUser, TUser } from "../redux/features/auth/authSlice";
 import verifyToken from "../utils/verifyToken";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { message } from "antd";
 
 type TUserLogin = {
   email: string;
@@ -19,6 +19,7 @@ const Login = () => {
   };
   // redux
   const dispatch = useAppDispatch();
+  const { user } = useAppSelector((state) => state.auth);
   const [login] = useLoginMutation();
 
   // react
@@ -45,6 +46,14 @@ const Login = () => {
     }
   };
 
+  // prevent login page open if user already logged in
+  useEffect(() => {
+    if (user?.userId) {
+      message.info("You are already logged in!");
+      navigate("/");
+    }
+  }, [user?.userId, navigate]);
+  
   return (
     <div className="login-form">
       <div className="title">Login</div>

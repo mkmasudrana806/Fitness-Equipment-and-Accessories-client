@@ -5,7 +5,7 @@ import styled from "styled-components";
 const CartsPage = () => {
   return (
     <div>
-      <h1 style={{ fontSize: "2rem" }}>Shopping Cart</h1>
+      <h1 style={{ fontSize: "2rem" }}>Shopping Carts</h1>
       <CartsBillingContainer>
         <Carts />
         <Billings />
