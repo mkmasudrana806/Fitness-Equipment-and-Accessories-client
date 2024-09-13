@@ -41,13 +41,11 @@ const HeaderNavlinkDrawer = ({
         {user?.role && (
           <Menu.Item key="dashboard">
             <Badge offset={[5, 1]} color="#E15B40" count={5}>
-              <NavLink to={`/${user}/dashboard`}>Dashboard</NavLink>
+              <NavLink to={`/${user?.role}/dashboard`}>Dashboard</NavLink>
             </Badge>
           </Menu.Item>
         )}
-        <Menu.Item key="testimonials">
-          <NavLink to={"/testimonials"}>Testimonials</NavLink>
-        </Menu.Item>
+
         <Menu.Item key="about us">
           <NavLink to={"/about-us"}>About Us</NavLink>
         </Menu.Item>

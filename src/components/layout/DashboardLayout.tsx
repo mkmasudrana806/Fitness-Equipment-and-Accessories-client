@@ -1,44 +1,34 @@
-import { Button, Layout, theme } from "antd";
+import { Layout } from "antd";
 import { Outlet } from "react-router-dom";
 import Sidebar from "./Sidebar";
-import { useAppDispatch } from "../../redux/hooks";
-import { logout } from "../../redux/features/auth/authSlice";
+import HeaderComponent from "../header/HeaderComponent";
+import styled from "styled-components";
 
 const { Header, Content } = Layout;
 
 const DashboardLayout = () => {
-  // redux
-  const dispatch = useAppDispatch();
-  const {
-    token: { colorBgContainer, borderRadiusLG },
-  } = theme.useToken();
-  // handle logout
-  const handleLogout = () => {
-    dispatch(logout());
-  };
-  
   return (
-    <Layout style={{ height: "100vh" }}>
+    <MainLayout style={{ height: "100vh" }}>
       <Sidebar />
       <Layout style={{ backgroundColor: "white" }}>
-        <Header>
-          <Button onClick={handleLogout}>Logout</Button>
+        <Header style={{ backgroundColor: "white", padding: "0px" }}>
+          <HeaderComponent />
         </Header>
-        <Content style={{ margin: "24px 16px 0" }}>
-          <div
-            style={{
-              padding: 24,
-              minHeight: 360,
-              background: colorBgContainer,
-              borderRadius: borderRadiusLG,
-            }}
-          >
-            <Outlet />
-          </div>
+        <Content style={{ margin: "0px 0px 0px 16px" }}>
+          <Outlet />
         </Content>
       </Layout>
-    </Layout>
+    </MainLayout>
   );
 };
 
 export default DashboardLayout;
+
+const MainLayout = styled(Layout)`
+  .header {
+    justify-content: end !important;
+  }
+  .header-logo {
+    display: none;
+  }
+`;

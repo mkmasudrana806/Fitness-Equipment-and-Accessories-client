@@ -60,7 +60,8 @@ const HeaderLogo = styled(NavLink)`
   display: flex;
   align-items: center;
   column-gap: 16px;
-  margin-top: 16px;
+  margin: 16px 0px;
+  justify-content: center;
   img {
     height: 32px;
     min-width: 32px;

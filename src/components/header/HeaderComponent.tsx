@@ -9,7 +9,7 @@ import UserProfileDrawer from "./UserProfileDrawer";
 import styled from "styled-components";
 const { Header } = Layout;
 
-const HeaderCom = () => {
+const HeaderComponent = () => {
   // redux
   // react
   const [isDrawerVisible, setIsDrawerVisible] = useState(false);
@@ -35,8 +35,8 @@ const HeaderCom = () => {
   };
 
   return (
-    <Header style={headerStyles}>
-      <HeaderLogo to={"/"}>
+    <Header className="header" style={headerStyles}>
+      <HeaderLogo className={"header-logo"} to={"/"}>
         <img src={logo} alt="" />
         <h1> GymBolt</h1>
       </HeaderLogo>
@@ -67,7 +67,7 @@ const HeaderCom = () => {
   );
 };
 
-export default HeaderCom;
+export default HeaderComponent;
 
 // header styles
 const headerStyles: React.CSSProperties = {

@@ -36,7 +36,6 @@ const HeaderNavlinks = ({ showProfileDrawer }: THeaderNavLinks) => {
           <NavLink to={`/${user?.role}/dashboard`}>Dashboard</NavLink>
         </Badge>
       )}
-      <NavLink to={"/about-us#feedback"}>Testimonials</NavLink>
       <NavLink to={"/about-us"}>About Us</NavLink>
       {user?.role ? (
         <>
