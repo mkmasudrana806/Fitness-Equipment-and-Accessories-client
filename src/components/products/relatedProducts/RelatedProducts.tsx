@@ -1,18 +1,19 @@
 import ProductCard from "../ProductCard";
 import styled from "styled-components";
 
-const RelatedProducts = () => {
+const RelatedProducts = ({ category }: { category: string }) => {
+  console.log("category: ", category);
   return (
     <div style={{ marginTop: "32px" }}>
       <h1 style={{ fontSize: "2.5rem" }}>You may alos like</h1>
       <RelatedProductsContainer>
+        {/* <ProductCard />
         <ProductCard />
         <ProductCard />
         <ProductCard />
         <ProductCard />
         <ProductCard />
-        <ProductCard />
-        <ProductCard />
+        <ProductCard /> */}
       </RelatedProductsContainer>
     </div>
   );

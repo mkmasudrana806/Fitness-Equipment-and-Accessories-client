@@ -1,34 +1,36 @@
-import featuredImg from "../../assets/images/featured.png";
 import { ArrowRightOutlined } from "@ant-design/icons";
 import { Rate } from "antd";
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
+import { TProduct } from "../../types/productType";
 
-const ProductCard = () => {
+const ProductCard = ({ product }: { product: TProduct }) => {
+  const { _id, category, name, price, featured, productImgUrl } = product;
   return (
     <ProductCardContainer className="product">
       <div className="img-container">
-        <img src={featuredImg} alt="" />
+        <img src={productImgUrl} alt="" />
       </div>
       <div className="info">
         <NavLink to={"/products"} className="category">
-          Dumble
+          {category}
         </NavLink>
-        <NavLink to={"/product/1"} className="title">
-          amar sonar bangla ami tomay valobashi, chirodin tomar akash tomar
-          batash amar prane
+        <NavLink to={`/product/${_id}`} className="title">
+          {name}
         </NavLink>
         <div className="product-cart-footer">
           <div>
-            <h1 style={{ color: "tomato", marginBottom: "4px" }}>$500</h1>
+            <h1 style={{ color: "tomato", marginBottom: "4px" }}>${price}</h1>
             <Rate disabled defaultValue={4} />
           </div>
-          <NavLink to={"/product/1"} className="details">
+          <NavLink to={`/product/${_id}`} className="details">
             <ArrowRightOutlined />
           </NavLink>
         </div>
       </div>
-      <FeaturedButton className="featured-btn">Featured</FeaturedButton>
+      {featured && (
+        <FeaturedButton className="featured-btn">Featured</FeaturedButton>
+      )}
     </ProductCardContainer>
   );
 };

@@ -12,6 +12,7 @@ import {
   PURGE,
   REGISTER,
 } from "redux-persist";
+import productSlice from "./features/products/productSlice";
 
 // redux persistor
 const persistConfig = {
@@ -26,6 +27,7 @@ const store = configureStore({
   reducer: {
     [baseApi.reducerPath]: baseApi.reducer,
     auth: persistedReducer,
+    products: productSlice,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

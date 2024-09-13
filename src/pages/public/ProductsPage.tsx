@@ -1,17 +1,14 @@
-import {
-  Button,
-  Drawer,
-  Input,
-  Pagination,
-  PaginationProps,
-  Select,
-  Tooltip,
-} from "antd";
+import { Drawer, Pagination, PaginationProps } from "antd";
 import styled from "styled-components";
-import ProductFilters from "../../components/products/ProductFilters";
+import ProductFilters from "../../components/products/ProductFiltersSidebar";
 import ProductCard from "../../components/products/ProductCard";
-import { FilterOutlined } from "@ant-design/icons";
 import { useState } from "react";
+import ProductFiltersHeader from "../../components/products/ProductFiltersHeader";
+import { useLoadAllProductsQuery } from "../../redux/features/products/productApi";
+import LoadingComponent from "../../components/messages/LoadingComponent";
+import ErrorComponent from "../../components/messages/ErrorComponent";
+import DataNotFound from "../../components/messages/DataNotFound";
+import { TProduct } from "../../types/productType";
 
 // paginations props
 const itemRender: PaginationProps["itemRender"] = (
@@ -30,6 +27,15 @@ const itemRender: PaginationProps["itemRender"] = (
 
 // product page
 const ProductsPage = () => {
+  // redux
+  const {
+    data: products,
+    isLoading,
+    isError,
+    isFetching,
+  } = useLoadAllProductsQuery(undefined);
+
+  // react
   const [open, setOpen] = useState(false);
 
   const showDrawer = () => {
@@ -44,9 +50,28 @@ const ProductsPage = () => {
     console.log(`selected ${value}`);
   };
 
+  let content = null;
+  // component to render
+  if (isLoading || isFetching) {
+    content = <LoadingComponent />;
+  } else if (!isLoading && isError) {
+    content = <ErrorComponent />;
+  } else if (!isLoading && !isError && products?.data?.length === 0) {
+    content = <DataNotFound />;
+  } else if (
+    !isLoading &&
+    !isError &&
+    products?.data &&
+    products?.data?.length > 0
+  ) {
+    content = products?.data?.map((product: TProduct) => (
+      <ProductCard key={product?._id} product={product} />
+    ));
+  }
+
   return (
     <ProductPage>
-      {/* filters sidebar  */}
+      {/* product filters sidebar  */}
       <div className="filters-sidebar">
         <ProductFilters />
       </div>
@@ -55,56 +80,25 @@ const ProductsPage = () => {
         <ProductFilters />
       </Drawer>
       <Container>
-        {/* product filters  */}
-        <div className="product-fitlers">
-          {/* filter button  */}
-          <Tooltip title="Filter Products">
-            <FilterButton onClick={showDrawer} icon={<FilterOutlined />} />
-          </Tooltip>
-          <Input placeholder="Search..." />
-          <Select
-            defaultValue="Show"
-            style={{ width: 120 }}
-            onChange={handleChange}
-            options={[
-              { value: "10", label: "10" },
-              { value: "20", label: "20" },
-              { value: "50", label: "50" },
-            ]}
-          />
-          <div
-            style={{ display: "flex", alignItems: "center", columnGap: "8px" }}
-          >
-            <p>Sort: </p>
-            <Select
-              defaultValue="Default"
-              style={{ width: "auto" }}
-              onChange={handleChange}
-              popupMatchSelectWidth={false}
-              options={[
-                { value: "Ascending", label: "Ascending(Price)" },
-                { value: "Descending", label: "Descending(Price)" },
-              ]}
-            />
-          </div>
-        </div>
+        {/* product filters header */}
+        <ProductFiltersHeader
+          handleChange={handleChange}
+          showDrawer={showDrawer}
+        />
 
         {/* products containers */}
-        <ProductsContainer>
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
-        </ProductsContainer>
+        <ProductsContainer>{content}</ProductsContainer>
 
         {/* paginations  */}
-        <Pagination
-          style={{ margin: "30px 0px" }}
-          align="center"
-          defaultCurrent={1}
-          total={500}
-          itemRender={itemRender}
-        />
+        {!isLoading && (
+          <Pagination
+            style={{ margin: "30px 0px" }}
+            align="center"
+            defaultCurrent={1}
+            total={500}
+            itemRender={itemRender}
+          />
+        )}
       </Container>
     </ProductPage>
   );
@@ -130,14 +124,6 @@ const ProductPage = styled.div`
   }
 `;
 
-// filter button show when mobile devices
-const FilterButton = styled(Button)`
-  min-width: 32px;
-  display: none;
-  @media screen and (max-width: 1000px) {
-    display: inline-block;
-  }
-`;
 // products filter + products container
 const Container = styled.div`
   width: 100%;
@@ -154,7 +140,8 @@ const ProductsContainer = styled.div`
   margin-top: 30px;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
+  column-gap: 16px;
+  row-gap: 24px;
 
   @media screen and (min-width: 576px) and (max-width: 768px) {
     grid-template-columns: repeat(2, 1fr);
