@@ -14,6 +14,7 @@ import {
 } from "redux-persist";
 import productSlice from "./features/products/productSlice";
 import filtersSlice from "./features/products/filtersSlice";
+import reviewsSlice from "./features/reviews/reviewsSlice";
 
 // redux persistor
 const persistConfig = {
@@ -30,6 +31,7 @@ const store = configureStore({
     auth: persistedReducer,
     products: productSlice,
     filters: filtersSlice,
+    reviews: reviewsSlice,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

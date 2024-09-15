@@ -53,15 +53,7 @@ const productApi = baseApi.injectEndpoints({
       providesTags: ["products"],
     }),
 
-    // ----------- create a new product
-    createProduct: builder.mutation({
-      query: (newProduct) => ({
-        url: "/products/create-product",
-        method: "POST",
-        body: newProduct,
-      }),
-      invalidatesTags: ["products"],
-    }),
+ 
 
     // ---------- load single product
     getProductById: builder.query({
@@ -75,6 +67,6 @@ const productApi = baseApi.injectEndpoints({
 
 export const {
   useLoadAllProductsQuery,
-  useCreateProductMutation,
+  
   useGetProductByIdQuery,
 } = productApi;

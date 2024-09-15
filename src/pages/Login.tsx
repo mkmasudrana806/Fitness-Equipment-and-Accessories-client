@@ -37,6 +37,7 @@ const Login = () => {
       const res = await login(loginData).unwrap();
       const user = verifyToken(res.data.accessToken) as TUser;
 
+      console.log("decoded user in login: ", user);
       dispatch(setUser({ user, token: res.data.accessToken }));
       toast.success("logged in successfully", {
         id: toastLoginId,

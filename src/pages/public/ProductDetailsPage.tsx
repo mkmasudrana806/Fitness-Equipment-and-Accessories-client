@@ -30,7 +30,7 @@ const ProductDetailsPage = () => {
       <>
         <ProductDetailsCart product={product?.data} />
         <RelatedProducts category={product?.data?.category} />
-        <ProductReviewComments />
+        <ProductReviewComments productId={id!} />
       </>
     );
   }
