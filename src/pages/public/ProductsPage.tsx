@@ -11,8 +11,8 @@ import DataNotFound from "../../components/messages/DataNotFound";
 import { TProduct } from "../../types/productType";
 import { RootState } from "../../redux/store";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
-import {   useSearchParams } from "react-router-dom";
-import { addCategoryFilters } from "../../redux/features/products/filtersSlice";
+import { useSearchParams } from "react-router-dom";
+import { addCategoryFilters, setLimit, setPage } from "../../redux/features/products/filtersSlice";
 
 // paginations props
 const itemRender: PaginationProps["itemRender"] = (
@@ -40,7 +40,6 @@ const ProductsPage = () => {
     data: products,
     isLoading,
     isError,
-
   } = useLoadAllProductsQuery({
     searchTerm,
     priceRange,
@@ -63,10 +62,8 @@ const ProductsPage = () => {
     setOpen(false);
   };
 
-  console.log("com rendered");
   useEffect(() => {
     if (category) {
-      console.log("if true");
       dispatch(addCategoryFilters(category));
     }
   }, [category, dispatch]);
@@ -89,6 +86,12 @@ const ProductsPage = () => {
       <ProductCard key={product?._id} product={product} />
     ));
   }
+  const handlePaginationChange = (currentPage: number, pageSize?: number) => {
+    dispatch(setPage(currentPage));
+    if (pageSize && pageSize !== limit) {
+      dispatch(setLimit(pageSize));
+    }
+  };
 
   return (
     <ProductPage>
@@ -110,10 +113,13 @@ const ProductsPage = () => {
         {/* paginations  */}
         {!isLoading && (
           <Pagination
+            current={page}
+            total={products?.meta?.total}
+            pageSize={limit}
+            onChange={handlePaginationChange}
             style={{ margin: "30px 0px" }}
-            align="center"
-            defaultCurrent={1}
-            total={500}
+            showSizeChanger
+            pageSizeOptions={["10", "20", "50"]} // limit per page
             itemRender={itemRender}
           />
         )}

@@ -32,7 +32,7 @@ const ProductFAQ = () => {
       {/* when no reviews, show empty message  */}
       <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
       {/* show reviews when it has  */}
-      <Collapse accordion items={items} defaultActiveKey={["1"]} />
+      {/*TODO:  <Collapse accordion items={items} defaultActiveKey={["1"]} /> */}
     </div>
   );
 };
