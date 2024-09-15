@@ -4,13 +4,22 @@ import Hero from "../../components/Hero";
 import Benefits from "../../components/Benefits";
 import SuccessCustomersGallery from "../../components/SuccessCustomersGallery";
 import Testimonials from "../../components/aboutUs/Testimonials";
+import { useLoadAllProductsQuery } from "../../redux/features/products/productApi";
 
 const Homepage = () => {
+  // redux
+  const { data: products, isLoading, isError } = useLoadAllProductsQuery({});
+
   return (
     <>
       <Hero />
-      <Categories />
-      <FeatruedProducts />
+      {!isLoading && !isError && products?.data && (
+        <Categories products={products?.data} />
+      )}
+      {!isLoading && !isError && products?.data && (
+        <FeatruedProducts products={products?.data} />
+      )}
+
       <Benefits />
       <SuccessCustomersGallery />
       <Testimonials />

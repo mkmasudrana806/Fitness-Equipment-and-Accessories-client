@@ -1,20 +1,44 @@
+import { useLoadAllProductsQuery } from "../../../redux/features/products/productApi";
+import { TProduct } from "../../../types/productType";
+import DataNotFound from "../../messages/DataNotFound";
+import ErrorComponent from "../../messages/ErrorComponent";
+import LoadingComponent from "../../messages/LoadingComponent";
 import ProductCard from "../ProductCard";
 import styled from "styled-components";
 
-const RelatedProducts = ({ category }: { category: string }) => {
-  console.log("category: ", category);
+const RelatedProducts = (category: { category: string }) => {
+  console.log("Related Products: ", category);
+  const {
+    data: products,
+    isLoading,
+    isFetching,
+    isError,
+  } = useLoadAllProductsQuery(category);
+
+  // decide what to render
+  let content = null;
+  // component to render
+  if (isLoading || isFetching) {
+    content = <LoadingComponent />;
+  } else if (!isLoading && isError) {
+    content = <ErrorComponent />;
+  } else if (!isLoading && !isError && products?.data?.length === 0) {
+    content = <DataNotFound />;
+  } else if (
+    !isLoading &&
+    !isError &&
+    products?.data &&
+    products?.data?.length > 0
+  ) {
+    content = products?.data?.map((product: TProduct) => (
+      <ProductCard key={product?._id} product={product} />
+    ));
+  }
+
   return (
     <div style={{ marginTop: "32px" }}>
       <h1 style={{ fontSize: "2.5rem" }}>You may alos like</h1>
-      <RelatedProductsContainer>
-        {/* <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard /> */}
-      </RelatedProductsContainer>
+      <RelatedProductsContainer>{content}</RelatedProductsContainer>
     </div>
   );
 };
@@ -57,7 +81,7 @@ const RelatedProductsContainer = styled.div`
   // responsive
   @media screen and (min-width: 576px) and (max-width: 768px) {
     .product {
-      max-width: fit-content;
+      max-width: 100%;
       height: 300px;
       .img-container {
         height: 150px;

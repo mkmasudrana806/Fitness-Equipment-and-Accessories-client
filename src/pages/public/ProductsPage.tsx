@@ -2,13 +2,17 @@ import { Drawer, Pagination, PaginationProps } from "antd";
 import styled from "styled-components";
 import ProductFilters from "../../components/products/ProductFiltersSidebar";
 import ProductCard from "../../components/products/ProductCard";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ProductFiltersHeader from "../../components/products/ProductFiltersHeader";
 import { useLoadAllProductsQuery } from "../../redux/features/products/productApi";
 import LoadingComponent from "../../components/messages/LoadingComponent";
 import ErrorComponent from "../../components/messages/ErrorComponent";
 import DataNotFound from "../../components/messages/DataNotFound";
 import { TProduct } from "../../types/productType";
+import { RootState } from "../../redux/store";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import {   useSearchParams } from "react-router-dom";
+import { addCategoryFilters } from "../../redux/features/products/filtersSlice";
 
 // paginations props
 const itemRender: PaginationProps["itemRender"] = (
@@ -28,14 +32,27 @@ const itemRender: PaginationProps["itemRender"] = (
 // product page
 const ProductsPage = () => {
   // redux
+  const dispatch = useAppDispatch();
+  const { searchTerm, priceRange, selectedCategories, sort, limit, page } =
+    useAppSelector((state: RootState) => state.filters);
+
   const {
     data: products,
     isLoading,
     isError,
-    isFetching,
-  } = useLoadAllProductsQuery(undefined);
+
+  } = useLoadAllProductsQuery({
+    searchTerm,
+    priceRange,
+    selectedCategories,
+    sort,
+    limit,
+    page,
+  });
 
   // react
+  const [searchParams] = useSearchParams();
+  const category = searchParams.get("category");
   const [open, setOpen] = useState(false);
 
   const showDrawer = () => {
@@ -46,13 +63,17 @@ const ProductsPage = () => {
     setOpen(false);
   };
 
-  const handleChange = (value: string) => {
-    console.log(`selected ${value}`);
-  };
+  console.log("com rendered");
+  useEffect(() => {
+    if (category) {
+      console.log("if true");
+      dispatch(addCategoryFilters(category));
+    }
+  }, [category, dispatch]);
 
   let content = null;
   // component to render
-  if (isLoading || isFetching) {
+  if (isLoading) {
     content = <LoadingComponent />;
   } else if (!isLoading && isError) {
     content = <ErrorComponent />;
@@ -81,10 +102,7 @@ const ProductsPage = () => {
       </Drawer>
       <Container>
         {/* product filters header */}
-        <ProductFiltersHeader
-          handleChange={handleChange}
-          showDrawer={showDrawer}
-        />
+        <ProductFiltersHeader showDrawer={showDrawer} />
 
         {/* products containers */}
         <ProductsContainer>{content}</ProductsContainer>

@@ -1,22 +1,40 @@
 import styled from "styled-components";
-import { useState } from "react";
 import { Slider, Checkbox, Input, Row, Col, Button } from "antd";
 import { ClearOutlined } from "@ant-design/icons";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import { RootState } from "../../redux/store";
+import {
+  addCategoryFilters,
+  removeCategoryFilters,
+  resetFilters,
+  setPriceFilterRange,
+} from "../../redux/features/products/filtersSlice";
+import { useLoadAllProductsQuery } from "../../redux/features/products/productApi";
+import { TProduct } from "../../types/productType";
 
 const ProductFilters = () => {
-  const [range, setRange] = useState<[number, number]>([20, 50]);
+  // redux
+  const dispatch = useAppDispatch();
+  const { priceRange, selectedCategories } = useAppSelector(
+    (state: RootState) => state.filters
+  );
+  const { data: products } = useLoadAllProductsQuery({});
+  // make unique categories string array
+  const uniqueCategories = [
+    ...new Set(products?.data?.map((product: TProduct) => product.category)),
+  ] as string[];
 
-  // Handle when slider changes
-  const handleSliderChange = (newRange: number[]) => {
-    setRange([newRange[0], newRange[1]]);
-  };
 
   // Handle when input changes
   const handleInputChange = (type: "start" | "end", value: number) => {
     if (type === "start") {
-      setRange([Math.min(value, range[1]), range[1]]); // Ensure start is less than end
+      dispatch(
+        setPriceFilterRange([Math.min(value, priceRange[1]), priceRange[1]])
+      ); // Ensure start is less than end
     } else {
-      setRange([range[0], Math.max(value, range[0])]); // Ensure end is greater than start
+      dispatch(
+        setPriceFilterRange([priceRange[0], Math.max(value, priceRange[0])])
+      ); // Ensure end is greater than start
     }
   };
 
@@ -24,12 +42,32 @@ const ProductFilters = () => {
   const handleInputBlur = (type: "start" | "end", value: number) => {
     handleInputChange(type, value);
   };
+
+  const handleSliderChange = (newRange: number[]) => {
+    dispatch(setPriceFilterRange([newRange[0], newRange[1]]));
+  };
+
+  // Update category filter
+  const handleCategoryChange = (category: string, isChecked: boolean) => {
+    if (isChecked) {
+      dispatch(addCategoryFilters(category));
+    } else {
+      dispatch(removeCategoryFilters(category));
+    }
+  };
+
+  // handle clear all filters
+  const handleClearFilters = () => {
+    dispatch(resetFilters());
+  };
+  
   return (
     <FiltersSide>
       <Button
         style={{ width: "100%" }}
         icon={<ClearOutlined />}
         iconPosition="end"
+        onClick={handleClearFilters}
       >
         Clear Filters
       </Button>
@@ -39,10 +77,9 @@ const ProductFilters = () => {
         <hr />
         <Slider
           range
-          value={range}
-          defaultValue={[20, 50]}
+          value={priceRange}
           min={0}
-          max={100}
+          max={10000}
           onChange={handleSliderChange}
         />
         <Row gutter={16}>
@@ -50,7 +87,7 @@ const ProductFilters = () => {
             <Input
               type="number"
               min={0}
-              value={range[0]}
+              value={priceRange[0]}
               onChange={(e) =>
                 handleInputChange("start", Number(e.target.value))
               }
@@ -61,7 +98,7 @@ const ProductFilters = () => {
             <Input
               type="number"
               min={0}
-              value={range[1]}
+              value={priceRange[1]}
               onChange={(e) => handleInputChange("end", Number(e.target.value))}
               onBlur={(e) => handleInputBlur("end", Number(e.target.value))}
             />
@@ -73,9 +110,15 @@ const ProductFilters = () => {
       <h1 style={{ fontSize: "1.5rem", marginTop: "32px" }}>Category</h1>
       <hr />
       <div className="category-filter">
-        <Checkbox>Dumble</Checkbox>
-        <Checkbox>Cargo</Checkbox>
-        <Checkbox>Raddddddddddd</Checkbox>
+        {uniqueCategories.map((category: string, index) => (
+          <Checkbox
+            key={index}
+            checked={selectedCategories.includes(category)}
+            onChange={(e) => handleCategoryChange(category, e.target.checked)}
+          >
+            {category}
+          </Checkbox>
+        ))}
       </div>
     </FiltersSide>
   );

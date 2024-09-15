@@ -1,11 +1,13 @@
 import styled from "styled-components";
-import productImg from "../../assets/images/benefit4.png";
 import { Button, Input } from "antd";
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
+import { TProduct } from "../../types/productType";
 
-const ProductDetailsCart = () => {
-  const [quantity, setQuantity] = useState<number>(1);
+const ProductDetailsCart = ({ product }: { product: TProduct }) => {
+  const { category, description, name, price, productImgUrl, quantity } =
+    product;
+  const [cartQuantity, setQuantity] = useState<number>(1);
 
   // Handler to increment the quantity
   const increment = () => {
@@ -31,41 +33,47 @@ const ProductDetailsCart = () => {
     <ProductContainer>
       <ProductDetails>
         {/* product image  */}
-        <div>
-          <img src={productImg} alt="" />
+        <div className="product-img-container">
+          <img src={productImgUrl} alt="" />
         </div>
         {/* product information  */}
         <ProductInfo className="product-info">
-          <h1 className="product-title">
-            Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum
-            dolor sit amet.
-          </h1>
-          <p className="product-price">$500</p>
-          <h3>Category</h3>
-
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              columnGap: "16px",
-              marginTop: "16px",
-            }}
+          <h1 className="product-title">{name}</h1>
+          <p className="product-price">${price}</p>
+          <NavLink
+            to={`/products?category=${category}`}
+            className="product-category"
+            style={{ fontSize: "1.2rem" }}
           >
-            {/* product quantity count  */}
-            <ProductQuantityCount>
-              <Button onClick={decrement}>-</Button>
-              <Input
-                type="number"
-                min={1}
-                value={quantity}
-                onChange={handleInputChange}
-                style={{ width: "60px", textAlign: "center" }}
-              />
+            {category}
+          </NavLink>
+          {/* product quantity count  */}
+          {quantity > 0 ? (
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                columnGap: "16px",
+                marginTop: "16px",
+              }}
+            >
+              <ProductQuantityCount>
+                <Button onClick={decrement}>-</Button>
+                <Input
+                  type="number"
+                  min={1}
+                  value={cartQuantity}
+                  onChange={handleInputChange}
+                  style={{ width: "60px", textAlign: "center" }}
+                />
 
-              <Button onClick={increment}>+</Button>
-            </ProductQuantityCount>
-            <p style={{ color: "green" }}>In Stock</p>
-          </div>
+                <Button onClick={increment}>+</Button>
+              </ProductQuantityCount>
+              <p style={{ color: "green" }}>In Stock</p>
+            </div>
+          ) : (
+            <p style={{ color: "tomato" }}>Out of Stock</p>
+          )}
 
           {/* add to cart or buy  */}
           <Buttons>
@@ -80,11 +88,7 @@ const ProductDetailsCart = () => {
           </Buttons>
         </ProductInfo>
       </ProductDetails>
-      <div className="product-description">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure, magni.
-        Ducimus reprehenderit fugiat error eligendi tempore incidunt neque
-        temporibus quidem.
-      </div>
+      <div className="product-description">{description}</div>
     </ProductContainer>
   );
 };
@@ -102,9 +106,13 @@ const ProductDetails = styled.div`
   width: 100%;
   display: flex;
   gap: 16px;
-  > div {
-    width: 50%;
+  .product-img-container {
+ 
+    max-height: 400px;
+    object-fit: cover;
+    overflow: hidden;
   }
+  .product-img-container,
   .product-info {
     width: 50%;
   }
@@ -114,9 +122,7 @@ const ProductDetails = styled.div`
   // media query 768px
   @media screen and (max-width: 768px) {
     flex-direction: column;
-    > div {
-      width: 100%;
-    }
+    .product-img-container,
     .product-info {
       width: 100%;
     }
@@ -124,6 +130,9 @@ const ProductDetails = styled.div`
   @media screen and (min-width: 769px) and (max-width: 869px) {
     .product-info {
       .product-title {
+        font-size: 1.5rem;
+      }
+      .product-price {
         font-size: 1.2rem;
       }
     }
@@ -133,11 +142,17 @@ const ProductDetails = styled.div`
 // product info
 const ProductInfo = styled.div`
   .product-title {
-    font-size: 1.5rem;
+    font-size: 2rem;
+  }
+  .product-category {
+    cursor: pointer;
+    &:hover {
+      color: tomato;
+    }
   }
   .product-price {
     color: orange;
-    font-size: 1.2rem;
+    font-size: 1.3rem;
     margin: 8px 0px;
     font-weight: bold;
   }

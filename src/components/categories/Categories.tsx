@@ -1,4 +1,3 @@
-import logo from "../../assets/images/hero.jpg";
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
 import CategoryCart from "./CategoryCart";
@@ -10,8 +9,21 @@ import "swiper/css/pagination";
 
 // import required modules
 import { FreeMode, Pagination } from "swiper/modules";
+import { TProduct } from "../../types/productType";
+import { useNavigate } from "react-router-dom";
 
-const Categories = () => {
+// categories component
+const Categories = ({ products }: { products: TProduct[] }) => {
+  const uniqueCategories = [
+    ...new Set(
+      products?.map((product: TProduct) => ({
+        _id: product._id,
+        category: product.category,
+        img: product.productImgUrl,
+      }))
+    ),
+  ];
+
   return (
     <div>
       <h1
@@ -29,56 +41,23 @@ const Categories = () => {
         modules={[FreeMode, Pagination]}
         className="mySwiper"
       >
-        <SwiperSlide
-          key={1}
-          style={{
-            minWidth: "300px",
-            maxWidth: "300px",
-            height: "300px",
-          }}
-        >
-          <CategoryCart categoryName="Dumble" key={1} imageUrl={logo} />
-        </SwiperSlide>
-        <SwiperSlide
-          key={2}
-          style={{
-            minWidth: "300px",
-            maxWidth: "300px",
-            height: "300px",
-          }}
-        >
-          <CategoryCart categoryName="Dumble" key={1} imageUrl={logo} />
-        </SwiperSlide>
-        <SwiperSlide
-          key={3}
-          style={{
-            minWidth: "300px",
-            maxWidth: "300px",
-            height: "300px",
-          }}
-        >
-          <CategoryCart categoryName="Dumble" key={1} imageUrl={logo} />
-        </SwiperSlide>
-        <SwiperSlide
-          key={4}
-          style={{
-            minWidth: "300px",
-            maxWidth: "300px",
-            height: "300px",
-          }}
-        >
-          <CategoryCart categoryName="Dumble" key={1} imageUrl={logo} />
-        </SwiperSlide>
-        <SwiperSlide
-          key={5}
-          style={{
-            minWidth: "300px",
-            maxWidth: "300px",
-            height: "300px",
-          }}
-        >
-          <CategoryCart categoryName="Dumble" key={1} imageUrl={logo} />
-        </SwiperSlide>
+        {uniqueCategories.length > 0 &&
+          uniqueCategories.map((product: any) => (
+            <SwiperSlide
+              key={product._id}
+              style={{
+                minWidth: "300px",
+                maxWidth: "300px",
+                height: "300px",
+              }}
+            >
+              <CategoryCart
+                categoryName={product.category}
+                imageUrl={product?.img}
+                category={product?.category}
+              />
+            </SwiperSlide>
+          ))}
       </Swiper>
     </div>
   );

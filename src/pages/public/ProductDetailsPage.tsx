@@ -8,16 +8,14 @@ import DataNotFound from "../../components/messages/DataNotFound";
 import { useGetProductByIdQuery } from "../../redux/features/products/productApi";
 
 const ProductDetailsPage = () => {
-  const id = useParams<{ id: string }>();
+  const {id} = useParams<{ id: string }>();
 
   const {
     data: product,
     isError,
     isFetching,
     isLoading,
-  } = useGetProductByIdQuery(id?.id);
-
-  console.log(id.id, product);
+  } = useGetProductByIdQuery(id);
 
   let content = null;
   // component to render
@@ -30,7 +28,7 @@ const ProductDetailsPage = () => {
   } else if (product?.data) {
     content = (
       <>
-        <ProductDetailsCart />
+        <ProductDetailsCart product={product?.data} />
         <RelatedProducts category={product?.data?.category} />
         <ProductReviewComments />
       </>

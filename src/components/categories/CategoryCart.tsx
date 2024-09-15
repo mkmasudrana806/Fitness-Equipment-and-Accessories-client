@@ -4,16 +4,18 @@ import { NavLink } from "react-router-dom";
 
 interface OverlayImageCardProps {
   imageUrl: string;
+  category: string;
   categoryName: string;
 }
 
 const Category: React.FC<OverlayImageCardProps> = ({
   imageUrl,
+  category,
   categoryName,
 }) => {
   const [isHovered, setIsHovered] = useState(false);
   return (
-    <NavLink to={"/products"}>
+    <NavLink to={`/products?category=${category}`}>
       <Col
         style={categoryStyle}
         onMouseOver={() => setIsHovered(true)}
@@ -40,7 +42,7 @@ export default Category;
 
 const categoryStyle: React.CSSProperties = {
   position: "relative",
-  width: " 300px",
+  width: "300px",
   height: " 300px",
   overflow: " hidden",
   borderRadius: "8px",
@@ -66,7 +68,7 @@ const imageOverlayStyle: React.CSSProperties = {
   left: " 0",
   right: " 0",
   height: "100%",
-  background: "linear-gradient(to top, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0))",
+  background: "linear-gradient(to top, rgba(0, 0, 0, 0.651), rgba(0, 0, 0, 0))",
   zIndex: "1",
 };
 

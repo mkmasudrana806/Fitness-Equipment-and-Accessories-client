@@ -2,27 +2,73 @@ import baseApi from "../../api/baseApi";
 
 const productApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
-    // load all products
+    // --------- load all products
     loadAllProducts: builder.query({
-      query: () => ({
-        url: "/products",
-      }),
+      query: ({
+        searchTerm,
+        priceRange,
+        selectedCategories,
+        sort,
+        limit,
+        page,
+        ...others
+      }) => {
+        const params = new URLSearchParams();
+        // Search term
+        if (searchTerm) {
+          params.append("searchTerm", searchTerm);
+        }
+        // Price range
+        if (priceRange) {
+          params.append("minPrice", priceRange[0].toString());
+          params.append("maxPrice", priceRange[1].toString());
+        }
+        // Categories
+        if (selectedCategories?.length > 0) {
+          selectedCategories?.forEach((category: string) =>
+            params.append("category", encodeURIComponent(category))
+          );
+        }
+        // Sorting
+        if (sort) {
+          params.append("sort", sort);
+        }
+        // Pagination
+        if (limit) {
+          params.append("limit", limit.toString());
+        }
+        if (page) {
+          params.append("page", page.toString());
+        }
+
+        // Handle dynamic properties in "others"
+        Object.keys(others).forEach((key) => {
+          if (others[key]) {
+            params.append(key, others[key].toString());
+          }
+        });
+
+        return { url: `/products?${params.toString()}` };
+      },
+      providesTags: ["products"],
     }),
 
-    // create a new product
+    // ----------- create a new product
     createProduct: builder.mutation({
       query: (newProduct) => ({
         url: "/products/create-product",
         method: "POST",
         body: newProduct,
       }),
+      invalidatesTags: ["products"],
     }),
 
-    // load single product
+    // ---------- load single product
     getProductById: builder.query({
       query: (id) => ({
         url: `/products/${id}`,
       }),
+      providesTags: (result, error, arg) => [{ type: "product", id: arg.id }],
     }),
   }),
 });

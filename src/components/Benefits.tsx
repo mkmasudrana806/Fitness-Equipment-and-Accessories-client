@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "styled-components";
 
 import priceImg from "../assets/icons/price.png";
@@ -80,7 +79,7 @@ export default Benefits;
 
 // benefits container
 const BenefitsContainer = styled.div`
-  margin-top: 50px;
+  margin-top: 64px;
   display: flex;
   gap: 32px;
   align-items: center;
@@ -92,7 +91,8 @@ const BenefitsContainer = styled.div`
   }
   @media screen and (max-width: 992px) {
     flex-direction: column;
-    .benefits, .benefits-gallery {
+    .benefits,
+    .benefits-gallery {
       width: 100%;
     }
   }

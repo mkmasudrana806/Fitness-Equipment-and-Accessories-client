@@ -11,8 +11,9 @@ import "swiper/css/pagination";
 // import required modules
 import { FreeMode, Pagination } from "swiper/modules";
 import { NavLink } from "react-router-dom";
+import { TProduct } from "../../types/productType";
 
-const FeatruedProducts = () => {
+const FeatruedProducts = ({ products }: { products: TProduct[] }) => {
   return (
     <FeaturedProduct>
       <div className="container-title">
@@ -34,56 +35,22 @@ const FeatruedProducts = () => {
         modules={[FreeMode, Pagination]}
         className="mySwiper"
       >
-        <SwiperSlide
-          key={1}
-          style={{
-            minWidth: "300px",
-            maxWidth: "300px",
-            height: "300px",
-          }}
-        >
-          <ProductCard />
-        </SwiperSlide>
-        <SwiperSlide
-          key={2}
-          style={{
-            minWidth: "300px",
-            maxWidth: "300px",
-            height: "fit-content",
-          }}
-        >
-          <ProductCard />
-        </SwiperSlide>
-        <SwiperSlide
-          key={3}
-          style={{
-            minWidth: "300px",
-            maxWidth: "300px",
-            height: "300px",
-          }}
-        >
-          <ProductCard />
-        </SwiperSlide>
-        <SwiperSlide
-          key={4}
-          style={{
-            minWidth: "300px",
-            maxWidth: "300px",
-            height: "300px",
-          }}
-        >
-          <ProductCard />
-        </SwiperSlide>
-        <SwiperSlide
-          key={5}
-          style={{
-            minWidth: "300px",
-            maxWidth: "300px",
-            height: "300px",
-          }}
-        >
-          <ProductCard />
-        </SwiperSlide>
+        {products?.length > 0 &&
+          products.map(
+            (product) =>
+              product?.featured && (
+                <SwiperSlide
+                  key={product?._id}
+                  style={{
+                    minWidth: "300px",
+                    maxWidth: "300px",
+                    height: "fit-content",
+                  }}
+                >
+                  <ProductCard product={product} key={product._id} />
+                </SwiperSlide>
+              )
+          )}
       </Swiper>
     </FeaturedProduct>
   );

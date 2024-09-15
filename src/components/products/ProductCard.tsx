@@ -12,7 +12,7 @@ const ProductCard = ({ product }: { product: TProduct }) => {
         <img src={productImgUrl} alt="" />
       </div>
       <div className="info">
-        <NavLink to={"/products"} className="category">
+        <NavLink to={`/products?category=${category}`} className="category">
           {category}
         </NavLink>
         <NavLink to={`/product/${_id}`} className="title">
