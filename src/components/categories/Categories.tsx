@@ -10,7 +10,6 @@ import "swiper/css/pagination";
 // import required modules
 import { FreeMode, Pagination } from "swiper/modules";
 import { TProduct } from "../../types/productType";
-import { useNavigate } from "react-router-dom";
 
 // categories component
 const Categories = ({ products }: { products: TProduct[] }) => {

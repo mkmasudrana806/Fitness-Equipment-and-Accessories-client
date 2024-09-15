@@ -1,13 +1,85 @@
-import { Form, Input, InputNumber, Select, Switch, Button } from "antd";
+import {
+  Form,
+  Input,
+  InputNumber,
+  Select,
+  Switch,
+  Button,
+  message,
+} from "antd";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import { TProduct } from "../../types/productType";
+import {
+  useCreateProductMutation,
+  useLoadAllProductsQuery,
+  useUpdateProductMutation,
+} from "../../redux/features/products/productApi";
+import { useEffect } from "react";
+import {
+  clearEditProductData,
+  updateSingleProduct,
+} from "../../redux/features/products/productSlice";
 const { Option } = Select;
 
 const AddProduct = () => {
-  const onFinish = (values: any) => {
-    console.log("Form values: ", values);
+  // -------- redux
+  const dispatch = useAppDispatch();
+  const editProductData = useAppSelector(
+    (state) => state.products.editProductData
+  );
+  const { data: products } = useLoadAllProductsQuery({});
+  const [updateProduct] = useUpdateProductMutation();
+  const [createProduct] = useCreateProductMutation();
+
+  // -------- react
+  const [form] = Form.useForm();
+
+  // --------- watch changes for update product
+  useEffect(() => {
+    if (editProductData) {
+      form.setFieldsValue(editProductData);
+    }
+  }, [editProductData, form]);
+
+  // make categories array for select options
+  const uniqueCategories = [
+    ...new Set(products?.data?.map((product: TProduct) => product.category)),
+  ] as string[];
+
+  // ----------- add product or update product handler
+  const onFinish = async (values: TProduct) => {
+    // add product
+    if (!editProductData) {
+      const result = await createProduct(values).unwrap();
+      if (result?.success) {
+        form.resetFields();
+        message.success(result?.message);
+      }
+    }
+
+    // update product
+    else {
+      const result = await updateProduct({
+        product: values,
+        productId: editProductData._id,
+      }).unwrap();
+      dispatch(
+        updateSingleProduct({
+          product: result?.data,
+          productId: result?.data?._id,
+        })
+      );
+      if (result?.success) {
+        dispatch(clearEditProductData());
+        form.resetFields();
+        message.success(result.message);
+      }
+    }
   };
 
   return (
     <Form
+      form={form}
       name="productForm"
       onFinish={onFinish}
       layout="vertical"
@@ -50,12 +122,11 @@ const AddProduct = () => {
         rules={[{ required: true, message: "Please select a category!" }]}
       >
         <Select placeholder="Select a category">
-          <Option value="cardio">Cardio</Option>
-          <Option value="strength">Strength</Option>
-          <Option value="Yoga">Yoga</Option>
-          <Option value="accessories">Accessories</Option>
-          <Option value="wearables">Wearables</Option>
-          <Option value="recovery">Recovery</Option>
+          {uniqueCategories?.map((category, index) => (
+            <Option key={index} value={category}>
+              {category}
+            </Option>
+          ))}
         </Select>
       </Form.Item>
 
@@ -75,12 +146,7 @@ const AddProduct = () => {
       </Form.Item>
 
       {/* Featured */}
-      <Form.Item
-        label="Featured"
-        name="featured"
-        valuePropName="checked"
-        rules={[{ required: true, message: "Please indicate if featured!" }]}
-      >
+      <Form.Item label="Featured" name="featured" valuePropName="checked">
         <Switch />
       </Form.Item>
 
@@ -109,7 +175,7 @@ const AddProduct = () => {
       {/* Submit Button */}
       <Form.Item>
         <Button type="primary" htmlType="submit">
-          Add Product
+          {editProductData ? "Update Product" : "Add Product"}
         </Button>
       </Form.Item>
     </Form>

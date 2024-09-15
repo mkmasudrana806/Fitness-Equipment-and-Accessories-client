@@ -2,6 +2,17 @@ import baseApi from "../../api/baseApi";
 
 const productApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
+    // ---------- create a product into db
+    createProduct: builder.mutation({
+      query: (newProduct) => {
+        return {
+          url: `/products/create-product`,
+          method: "POST",
+          body: newProduct,
+        };
+      },
+      invalidatesTags: ["products"],
+    }),
     // --------- load all products
     loadAllProducts: builder.query({
       query: ({
@@ -53,8 +64,6 @@ const productApi = baseApi.injectEndpoints({
       providesTags: ["products"],
     }),
 
- 
-
     // ---------- load single product
     getProductById: builder.query({
       query: (id) => ({
@@ -62,11 +71,36 @@ const productApi = baseApi.injectEndpoints({
       }),
       providesTags: (result, error, arg) => [{ type: "product", id: arg.id }],
     }),
+
+    // ---------- delete single product
+    deleteProduct: builder.mutation({
+      query: (id) => ({
+        url: `/products/${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: (result, error, arg) => [
+        { type: "product", id: arg.id },
+      ],
+    }),
+
+    // ---------- update single product
+    updateProduct: builder.mutation({
+      query: ({ product, productId }) => {
+        return {
+          url: `/products/${productId}`,
+          method: "PATCH",
+          body: product,
+        };
+      },
+      invalidatesTags: ["products"],
+    }),
   }),
 });
 
 export const {
+  useCreateProductMutation,
   useLoadAllProductsQuery,
-  
   useGetProductByIdQuery,
+  useDeleteProductMutation,
+  useUpdateProductMutation,
 } = productApi;
