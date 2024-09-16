@@ -1,17 +1,20 @@
 import { Button } from "antd";
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
+import { useAppSelector } from "../../redux/hooks";
 
 const Billings = () => {
-  const subTotal = 0;
-  // const subTotal = carts.reduce(
-  //   (amount, cart) => amount + cart.price * cart.quantity,
-  //   0
-  // );
+  // redux
+  const carts = useAppSelector((state) => state.carts.items);
 
-  const discount = subTotal * 0.1;
+  const subTotal = carts.reduce(
+    (amount, cart) => amount + cart.price * cart.quantity,
+    0
+  );
+
+  const discount = subTotal * 0;
   const vat = subTotal * 0.05;
-  const totalAmount = subTotal - discount + vat + 10;
+  const totalAmount = subTotal - discount + vat;
 
   return (
     <BillingCart>
@@ -26,7 +29,7 @@ const Billings = () => {
           }}
         >
           <p>Sub Total</p>
-          <p>BDT {subTotal}</p>
+          <p>BDT {subTotal.toFixed(2)}</p>
         </div>
         {/* <!-- Discount --> */}
         <div
@@ -39,7 +42,7 @@ const Billings = () => {
         >
           <p>Discount</p>
           <p>
-            BDT <span>{discount}</span>
+            BDT <span>{discount.toFixed(2)}</span>
           </p>
         </div>
         {/* <!-- VAT --> */}
@@ -52,7 +55,7 @@ const Billings = () => {
           }}
         >
           <p>VAT</p>
-          <p>BDT {vat}</p>
+          <p>BDT {vat.toFixed(2)}</p>
         </div>
         {/* <!-- Total --> */}
         <div
@@ -64,7 +67,7 @@ const Billings = () => {
           }}
         >
           <p style={{ fontWeight: "bold" }}>TOTAL</p>
-          <p style={{ fontWeight: "bold" }}>BDT {totalAmount}</p>
+          <p style={{ fontWeight: "bold" }}>BDT {totalAmount.toFixed(2)}</p>
         </div>
         <PlaceOrderBtn
           type="primary"

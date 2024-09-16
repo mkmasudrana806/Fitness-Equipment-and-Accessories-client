@@ -1,25 +1,31 @@
 import styled from "styled-components";
-import { Button, Input } from "antd";
+import { Button, Input, message } from "antd";
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { TProduct } from "../../types/productType";
+import { useAppDispatch } from "../../redux/hooks";
+import { addToCart } from "../../redux/features/carts/cartsSlice";
 
 const ProductDetailsCart = ({ product }: { product: TProduct }) => {
+  // ---------- redux
+  const dispatch = useAppDispatch();
+
+  // --------- react
   const { category, description, name, price, productImgUrl, quantity } =
     product;
   const [cartQuantity, setQuantity] = useState<number>(1);
 
-  // Handler to increment the quantity
+  // ---------- Handler to increment the quantity
   const increment = () => {
     setQuantity((prevQuantity) => prevQuantity + 1);
   };
 
-  // Handler to decrement the quantity
+  // --------- Handler to decrement the quantity
   const decrement = () => {
     setQuantity((prevQuantity) => (prevQuantity > 1 ? prevQuantity - 1 : 1));
   };
 
-  // Handler to allow manual input in the input field
+  // --------- Handler to allow manual input in the input field
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = Number(e.target.value);
     if (value >= 1) {
@@ -27,6 +33,20 @@ const ProductDetailsCart = ({ product }: { product: TProduct }) => {
     } else {
       setQuantity(1); // Ensures value doesn't go below 1
     }
+  };
+
+  // ---------- handle add to cart product
+  const handleAddToCart = (product: TProduct) => {
+    const cartIitem = {
+      _id: product._id,
+      name: product.name,
+      productImgUrl: product.productImgUrl,
+      quantity: product.quantity,
+      price: product.price,
+      availableQuantity: product.quantity,
+    };
+    dispatch(addToCart(cartIitem));
+    message.success("Product added");
   };
 
   return (
@@ -77,7 +97,11 @@ const ProductDetailsCart = ({ product }: { product: TProduct }) => {
 
           {/* add to cart or buy  */}
           <Buttons>
-            <Button type="primary" shape="round">
+            <Button
+              onClick={() => handleAddToCart(product)}
+              type="primary"
+              shape="round"
+            >
               Add to cart
             </Button>
             <NavLink to={"/checkout"}>
@@ -107,7 +131,6 @@ const ProductDetails = styled.div`
   display: flex;
   gap: 16px;
   .product-img-container {
- 
     max-height: 400px;
     object-fit: cover;
     overflow: hidden;

@@ -15,6 +15,7 @@ import {
 import productSlice from "./features/products/productSlice";
 import filtersSlice from "./features/products/filtersSlice";
 import reviewsSlice from "./features/reviews/reviewsSlice";
+import cartsSlice from "./features/carts/cartsSlice";
 
 // redux persistor
 const persistConfig = {
@@ -32,6 +33,7 @@ const store = configureStore({
     products: productSlice,
     filters: filtersSlice,
     reviews: reviewsSlice,
+    carts: cartsSlice,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

@@ -1,18 +1,18 @@
 import { useEffect } from "react";
+import { useAppSelector } from "../redux/hooks";
 
 const PageRefreshWarning = () => {
-  //   const cart = useSelector((state) => state.cart);
-  const cart = [ ];
+  const carts = useAppSelector((state) => state.carts.items);
 
   useEffect(() => {
-    const handleBeforeUnload = (e: { returnValue: string; }) => {
-      // Check if the cart is not empty
-      if (cart.length !== 0) {
+    const handleBeforeUnload = (e: { returnValue: string }) => {
+      // Check if the carts is not empty
+      if (carts?.length !== 0) {
         // Custom warning message
         const warningMessage =
-          "Your cart is empty. Are you sure you want to leave?";
-        e.returnValue = warningMessage; // Standard for most browsers
-        return warningMessage; // For some other browsers
+          "Your carts is empty. Are you sure you want to leave?";
+        e.returnValue = warningMessage;
+        return warningMessage;
       }
       return null;
     };
