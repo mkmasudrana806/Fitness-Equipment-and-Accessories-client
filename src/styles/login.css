@@ -1,11 +1,6 @@
 /* Google Font Link */
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
 
-.login-form {
-  margin: 0 auto;
-  padding: 16px;
-}
-
 .login-container {
   position: relative;
   width: 100%;
@@ -55,6 +50,12 @@
   width: 100%;
   object-fit: cover;
   z-index: 10;
+}
+
+.flex {
+  display: flex;
+  align-items: center;
+  column-gap: 8px;
 }
 
 .login-container .cover .text {
@@ -136,9 +137,9 @@
 .forms .form-content .input-box {
   display: flex;
   align-items: center;
-  height: 50px;
+  height: 48px;
   width: 100%;
-  margin: 10px 0;
+  margin: 5px 0;
   position: relative;
 }
 
@@ -147,7 +148,7 @@
   width: 100%;
   outline: none;
   border: none;
-  padding: 0 30px;
+  padding: 0 0 0 28px;
   font-size: 16px;
   font-weight: 500;
   border-bottom: 2px solid rgba(0, 0, 0, 0.2);
@@ -159,13 +160,87 @@
   border-color: #ff775f;
 }
 
-.form-content .input-box i {
+/* select box */
+.forms .form-content .select-box {
+  display: flex;
+  align-items: center;
+  height: 48px;
+  width: 100%;
+  margin-top: 10px;
+  position: relative;
+  column-gap: 16px;
+}
+
+.form-content .select-box select {
+  height: 100%;
+  width: 100%;
+  outline: none;
+  border: none;
+  padding: 0 0 0 28px;
+  font-size: 16px;
+  font-weight: 500;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+}
+.form-content .select-box select:focus,
+.form-content .select-box select:valid {
+  border-color: #ff775f;
+}
+
+/* file section */
+/* select box */
+.forms .form-content .file-upload {
+  height: 48px;
+  width: 100%;
+  margin-top: 0px;
+  position: relative;
+}
+
+.form-content .file-upload .upload-wrapper {
+  height: 100%;
+  width: 100%;
+  font-size: 16px;
+  font-weight: 500;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+}
+
+.form-content .upload-wrapper .ant-upload-select {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.upload-btn {
+  height: 100%;
+  width: 100%;
+  outline: none;
+  border: none;
+  padding: 0 0 0 28px;
+  font-size: 16px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  box-shadow: none !important;
+}
+
+.form-content .file-upload:hover .upload-wrapper {
+  border-bottom: 2px solid #ff775f;
+}
+
+.form-content .select-box select:focus,
+.form-content .select-box select:valid {
+  border-color: #ff775f;
+}
+/* file selection end  */
+
+.form-content .input-box i,
+.form-content .select-box i {
   position: absolute;
   color: #ff775f;
   font-size: 17px;
 }
 
 .forms .form-content .text {
+  margin-top: 16px;
   font-size: 14px;
   font-weight: 500;
   color: #333;
@@ -181,7 +256,7 @@
 
 .forms .form-content .button {
   color: #fff;
-  margin-top: 40px;
+  margin-top: 32px;
 }
 
 .forms .form-content .button input {
@@ -216,7 +291,7 @@
   display: none;
 }
 
-@media (max-width: 730px) {
+@media (max-width: 768px) {
   .login-container .cover {
     display: none;
   }
@@ -226,6 +301,9 @@
     width: 100%;
   }
 
+  .flex {
+    flex-direction: column;
+  }
   .form-content .signup-form {
     display: none;
   }
