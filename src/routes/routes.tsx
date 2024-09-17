@@ -8,11 +8,11 @@ import ProductsPage from "../pages/public/ProductsPage";
 import ProductDetailsPage from "../pages/public/ProductDetailsPage";
 import AboutUs from "../pages/public/AboutUs";
 import AuthContainer from "../pages/AuthContainer";
-import RouteNotFound from "../pages/resultMessage/RouteNotFound";
+import RouteNotFound from "../components/messages/RouteNotFound";
 import DashboardLayout from "../components/layout/DashboardLayout";
 import AdminRoute from "./AdminProtectedRoute";
 import UserRoute from "./UserProtectedRoute";
-import UnauthorizedAccess from "../pages/resultMessage/UnauthorizedAccess";
+import UnauthorizedAccess from "../components/messages/UnauthorizedAccess";
 
 export const router = createBrowserRouter([
   {

@@ -1,4 +1,4 @@
-import PurchaseSuccessMessage from "../pages/resultMessage/PurchaseSuccessMessage";
+import PurchaseSuccessMessage from "../components/messages/PurchaseSuccessMessage";
 import CartsPage from "../pages/user/CartsPage";
 import CheckOutPage from "../pages/user/CheckOutPage";
 import MiniStatements from "../pages/user/MiniStatements";
