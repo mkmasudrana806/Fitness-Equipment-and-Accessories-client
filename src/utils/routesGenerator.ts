@@ -3,7 +3,7 @@ import { TRoute, TUserPaths } from "../types";
 // routes generator
 const routesGenerator = (paths: TUserPaths[]) => {
   const result = paths.reduce((acc: TRoute[], item) => {
-    if (item.name && item.path) {
+    if ((item.name && item.path) || (item.path && item.element)) {
       acc.push({
         path: item.path,
         element: item.element,

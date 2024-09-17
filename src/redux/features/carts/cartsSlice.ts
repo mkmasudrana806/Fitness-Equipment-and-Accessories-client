@@ -20,10 +20,10 @@ const cartSlice = createSlice({
       );
       if (existingItem) {
         if (existingItem.quantity < existingItem.availableQuantity) {
-          existingItem.quantity += 1;
+          existingItem.quantity = action.payload.quantity;
         }
       } else {
-        state.items.push({ ...action.payload, quantity: 1 });
+        state.items.push(action.payload);
       }
     },
     // increment cart quantity by 1
@@ -50,6 +50,11 @@ const cartSlice = createSlice({
         (cartItem) => cartItem._id !== action.payload
       );
     },
+
+    // remove all crat items from store
+    removeAllCarts: (state) => {
+      state.items = [];
+    },
   },
 });
 
@@ -58,6 +63,7 @@ export const {
   incrementCartQuantity,
   decrementCartQuantity,
   removeCart,
+  removeAllCarts,
 } = cartSlice.actions;
 
 export default cartSlice.reducer;

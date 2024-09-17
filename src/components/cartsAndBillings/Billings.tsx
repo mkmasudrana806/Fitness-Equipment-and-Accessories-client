@@ -13,7 +13,7 @@ const Billings = () => {
   );
 
   const discount = subTotal * 0;
-  const vat = subTotal * 0.05;
+  const vat = subTotal * 0;
   const totalAmount = subTotal - discount + vat;
 
   return (
@@ -75,7 +75,7 @@ const Billings = () => {
           disabled={totalAmount === 0 ? true : false}
           className="placeOrderbtn"
         >
-          <NavLink to={"/checkout"}>
+          <NavLink to={"/user/checkout"}>
             {totalAmount > 0 ? "Proceed to checkout" : "no cart selected"}
           </NavLink>
         </PlaceOrderBtn>

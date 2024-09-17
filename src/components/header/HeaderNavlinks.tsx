@@ -32,9 +32,11 @@ const HeaderNavlinks = ({ showProfileDrawer }: THeaderNavLinks) => {
       <NavLink to={"/"}>Home</NavLink>
       <NavLink to={"/products"}>Products</NavLink>
       {user?.role && (
-        <Badge offset={[5, 1]} color="#E15B40" count={5}>
-          <NavLink to={`/${user?.role}/dashboard`}>Dashboard</NavLink>
-        </Badge>
+        <NavLink to={`/${user?.role}/dashboard`}>Dashboard</NavLink>
+
+        // <Badge offset={[5, 1]} color="#E15B40" count={5}>
+        //   <NavLink to={`/${user?.role}/dashboard`}>Dashboard</NavLink>
+        // </Badge>
       )}
       <NavLink to={"/about-us"}>About Us</NavLink>
       {user?.role ? (

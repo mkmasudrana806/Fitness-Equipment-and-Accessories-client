@@ -8,13 +8,11 @@ const PurchaseSuccessMessage = () => {
       title="Successfully Purchased Your Products"
       subTitle="Order number: 2017182818828182881, it will takes some days to deliver to your locaion, please wait."
       extra={[
-        <NavLink to={"/"}>
-          <Button type="primary" key="console">
-            Go to Home
-          </Button>
+        <NavLink key={"my-orders"} to={"/user/my-orders"}>
+          <Button type="primary">My Orders</Button>
         </NavLink>,
-        <NavLink to={"/products"}>
-          <Button key="buy">Buy Again</Button>
+        <NavLink key={"buy-again"} to={"/products"}>
+          <Button>Buy Again</Button>
         </NavLink>,
       ]}
     />

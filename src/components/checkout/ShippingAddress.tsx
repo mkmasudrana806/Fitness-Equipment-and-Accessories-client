@@ -1,4 +1,6 @@
 import { Button, Form, Input, Space } from "antd";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import { setCurrentOrder } from "../../redux/features/orders/orderSlice";
 
 const layout = {
   labelCol: { span: 8 },
@@ -9,19 +11,34 @@ const tailLayout = {
   wrapperCol: { offset: 8, span: 16 },
 };
 
-const ShippingAddress = ({ handleShippingSubmit }) => {
+interface Props {
+  handleShippingSubmit: () => void;
+}
+
+// ---------- Shipping address component
+const ShippingAddress: React.FC<Props> = ({ handleShippingSubmit }) => {
+  // redux
+  const dispatch = useAppDispatch();
+  const shippingAddress = useAppSelector(
+    (state) => state.orders.currentOrder?.shippingAddress
+  );
+  // react
   const [form] = Form.useForm();
 
+  // --------- submit the form
   const onFinish = (values: any) => {
-    console.log(values);
+    handleShippingSubmit();
+    dispatch(setCurrentOrder({ shippingAddress: values }));
   };
 
+  // -------- reset the form
   const onReset = () => {
     form.resetFields();
   };
 
+  // --------- auto fill up the form with the previous values
   const onFill = () => {
-    form.setFieldsValue({ note: "Hello world!", gender: "male" });
+    form.setFieldsValue(shippingAddress);
   };
 
   return (
@@ -34,19 +51,15 @@ const ShippingAddress = ({ handleShippingSubmit }) => {
     >
       {/* name field  */}
       <Form.Item name="name" label="Name" rules={[{ required: true }]}>
-        <Input />
+        <Input type="text" />
       </Form.Item>
       {/* email field  */}
       <Form.Item name="email" label="Email" rules={[{ required: true }]}>
-        <Input />
+        <Input type="email" />
       </Form.Item>
       {/* contact no field  */}
-      <Form.Item
-        name="contactNo"
-        label="Contact No"
-        rules={[{ required: true }]}
-      >
-        <Input />
+      <Form.Item name="contact" label="Contact No" rules={[{ required: true }]}>
+        <Input type="number" />
       </Form.Item>
       {/* delivery address field  */}
       <Form.Item
@@ -54,16 +67,12 @@ const ShippingAddress = ({ handleShippingSubmit }) => {
         label="Shipping address"
         rules={[{ required: true }]}
       >
-        <Input />
+        <Input type="text" />
       </Form.Item>
 
       <Form.Item {...tailLayout}>
         <Space>
-          <Button
-            onClick={handleShippingSubmit}
-            type="primary"
-            htmlType="submit"
-          >
+          <Button type="primary" htmlType="submit">
             Submit
           </Button>
           <Button htmlType="button" onClick={onReset}>

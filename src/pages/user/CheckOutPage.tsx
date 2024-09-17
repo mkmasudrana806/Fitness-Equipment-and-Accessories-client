@@ -4,23 +4,43 @@ import { Button, message, Steps, theme } from "antd";
 import BillingAddress from "../../components/checkout/BillingAddress";
 import ShippingAddress from "../../components/checkout/ShippingAddress";
 import PaymentMethods from "../../components/checkout/PaymentMethods";
-import { NavLink } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import {
+  removeCurrentOrder,
+  setCurrentOrder,
+} from "../../redux/features/orders/orderSlice";
+import { useNavigate } from "react-router-dom";
+import { removeAllCarts } from "../../redux/features/carts/cartsSlice";
+import { useMakeAnOrderMutation } from "../../redux/features/orders/orderApi";
+import { PoweroffOutlined } from "@ant-design/icons";
 
 // checkout page components
 const CheckOutPage = () => {
+  // redux
+  const dispatch = useAppDispatch();
+  const currentOrder = useAppSelector((state) => state.orders.currentOrder);
+  const user = useAppSelector((state) => state.auth.user);
+  const carts = useAppSelector((state) => state.carts.items);
+  const [makeAnOrder] = useMakeAnOrderMutation();
+
+  // react
+  const navigate = useNavigate();
   const { token } = theme.useToken();
   const [current, setCurrent] = useState(0);
   const [processCompleted, setProcessCompleted] = useState(false);
   const [shippingAddressCompleted, setShippingAddressCompleted] =
     useState(true);
+  const [paymentMethod, setPaymentMethod] = useState("stripe");
+  // place order button loading
+  const [btnLoading, setBtnLoading] = useState(false);
 
-  // handle next
+  // -------- handle next button
   const next = () => {
     setCurrent(current + 1);
     setShippingAddressCompleted(false);
   };
 
-  // handle previous
+  // -------- handle previous button
   const prev = () => {
     setCurrent(current - 1);
     if (current !== 2) {
@@ -28,18 +48,42 @@ const CheckOutPage = () => {
     }
   };
 
-  // handle done
+  // ---------- handle done button
   const handleDone = () => {
     message.success("Processing complete!");
     setProcessCompleted(true);
+    // set payment method to store
+    dispatch(setCurrentOrder({ paymentMethod }));
   };
 
-  // handle shipping address submit
+  // ------- handle shipping address submit
   const handleShippingSubmit = () => {
     setCurrent(current + 1);
   };
 
-  // steps
+  // ---------- handle palce order
+  const handlePlaceOrder = async () => {
+    setBtnLoading(true);
+    // make new order data
+    const order = {
+      email: user?.email,
+      ...currentOrder,
+      items: carts.map((cart) => ({
+        productId: cart?._id,
+        quantity: cart?.quantity,
+        price: cart.price,
+      })),
+    };
+
+    dispatch(removeCurrentOrder());
+    dispatch(removeAllCarts());
+
+    // pass order data to server
+    await makeAnOrder(order);
+    setBtnLoading(false);
+    navigate("/user/purchase-success");
+  };
+  // --------- steps
   const steps = [
     {
       title: "Billing Address",
@@ -51,7 +95,12 @@ const CheckOutPage = () => {
     },
     {
       title: "Payment Methods",
-      content: <PaymentMethods />,
+      content: (
+        <PaymentMethods
+          value={paymentMethod}
+          onChange={(value: string) => setPaymentMethod(value)}
+        />
+      ),
     },
   ];
 
@@ -74,9 +123,14 @@ const CheckOutPage = () => {
       <div style={contentStyle}>{steps[current].content}</div>
       {/* steps switch button  */}
       {processCompleted ? (
-        <NavLink to={"/purchase-success"}>
-          <Button type="primary">Place Order</Button>
-        </NavLink>
+        <Button
+          icon={<PoweroffOutlined />}
+          loading={btnLoading}
+          onClick={handlePlaceOrder}
+          type="primary"
+        >
+          Place Order
+        </Button>
       ) : (
         <div>
           {current < steps.length - 1 && shippingAddressCompleted && (

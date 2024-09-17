@@ -16,6 +16,8 @@ import productSlice from "./features/products/productSlice";
 import filtersSlice from "./features/products/filtersSlice";
 import reviewsSlice from "./features/reviews/reviewsSlice";
 import cartsSlice from "./features/carts/cartsSlice";
+import userSlice from "./features/users/userSlice";
+import orderSlice from "./features/orders/orderSlice";
 
 // redux persistor
 const persistConfig = {
@@ -30,10 +32,12 @@ const store = configureStore({
   reducer: {
     [baseApi.reducerPath]: baseApi.reducer,
     auth: persistedReducer,
+    user: userSlice,
     products: productSlice,
     filters: filtersSlice,
     reviews: reviewsSlice,
     carts: cartsSlice,
+    orders: orderSlice,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

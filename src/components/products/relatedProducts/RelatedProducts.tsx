@@ -7,7 +7,6 @@ import ProductCard from "../ProductCard";
 import styled from "styled-components";
 
 const RelatedProducts = (category: { category: string }) => {
-  console.log("Related Products: ", category);
   const {
     data: products,
     isLoading,

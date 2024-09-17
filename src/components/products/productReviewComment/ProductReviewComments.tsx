@@ -1,9 +1,7 @@
 import { Tabs, TabsProps } from "antd";
-import Comments from "./Comments";
 import ProductFAQ from "./ProductFAQ";
 import { useGetAllReviewsQuery } from "../../../redux/features/reviews/reviewsApi";
 import ReviewsContainer from "./ReviewsContainer";
-import CommentsContainer from "./CommentsContainer";
 
 const onChange = (key: string) => {
   console.log(key);

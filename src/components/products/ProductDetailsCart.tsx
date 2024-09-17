@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { Button, Input, message } from "antd";
 import { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { TProduct } from "../../types/productType";
 import { useAppDispatch } from "../../redux/hooks";
 import { addToCart } from "../../redux/features/carts/cartsSlice";
@@ -11,6 +11,7 @@ const ProductDetailsCart = ({ product }: { product: TProduct }) => {
   const dispatch = useAppDispatch();
 
   // --------- react
+  const navigate = useNavigate();
   const { category, description, name, price, productImgUrl, quantity } =
     product;
   const [cartQuantity, setQuantity] = useState<number>(1);
@@ -41,14 +42,40 @@ const ProductDetailsCart = ({ product }: { product: TProduct }) => {
       _id: product._id,
       name: product.name,
       productImgUrl: product.productImgUrl,
-      quantity: product.quantity,
+      quantity: cartQuantity,
       price: product.price,
       availableQuantity: product.quantity,
     };
-    dispatch(addToCart(cartIitem));
-    message.success("Product added");
+    if (cartQuantity < product.quantity) {
+      dispatch(addToCart(cartIitem));
+      message.success("Product added");
+    } else {
+      message.warning(
+        product.quantity === 0 ? "Out of stock" : "Insufficient quantity!"
+      );
+    }
   };
 
+  // ---------- handle buy product
+  const handleBuyProduct = (product: TProduct) => {
+    const cartIitem = {
+      _id: product._id,
+      name: product.name,
+      productImgUrl: product.productImgUrl,
+      quantity: cartQuantity,
+      price: product.price,
+      availableQuantity: product.quantity,
+    };
+    if (cartQuantity < product.quantity) {
+      dispatch(addToCart(cartIitem));
+      message.success("Product added");
+      navigate("/user/carts");
+    } else {
+      message.warning(
+        product.quantity === 0 ? "Out of stock" : "Insufficient quantity!"
+      );
+    }
+  };
   return (
     <ProductContainer>
       <ProductDetails>
@@ -68,32 +95,24 @@ const ProductDetailsCart = ({ product }: { product: TProduct }) => {
             {category}
           </NavLink>
           {/* product quantity count  */}
-          {quantity > 0 ? (
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                columnGap: "16px",
-                marginTop: "16px",
-              }}
-            >
-              <ProductQuantityCount>
-                <Button onClick={decrement}>-</Button>
-                <Input
-                  type="number"
-                  min={1}
-                  value={cartQuantity}
-                  onChange={handleInputChange}
-                  style={{ width: "60px", textAlign: "center" }}
-                />
-
-                <Button onClick={increment}>+</Button>
-              </ProductQuantityCount>
+          <ProductCounterSection>
+            <ProductQuantityCount>
+              <Button onClick={decrement}>-</Button>
+              <Input
+                type="number"
+                min={1}
+                value={cartQuantity}
+                onChange={handleInputChange}
+                style={{ width: "60px", textAlign: "center" }}
+              />
+              <Button onClick={increment}>+</Button>
+            </ProductQuantityCount>
+            {quantity > 0 ? (
               <p style={{ color: "green" }}>In Stock</p>
-            </div>
-          ) : (
-            <p style={{ color: "tomato" }}>Out of Stock</p>
-          )}
+            ) : (
+              <p style={{ color: "tomato" }}>Out of Stock</p>
+            )}
+          </ProductCounterSection>
 
           {/* add to cart or buy  */}
           <Buttons>
@@ -104,11 +123,14 @@ const ProductDetailsCart = ({ product }: { product: TProduct }) => {
             >
               Add to cart
             </Button>
-            <NavLink to={"/checkout"}>
-              <Button type="primary" shape="round">
-                Buy Now
-              </Button>
-            </NavLink>
+
+            <Button
+              onClick={() => handleBuyProduct(product)}
+              type="primary"
+              shape="round"
+            >
+              Buy Now
+            </Button>
           </Buttons>
         </ProductInfo>
       </ProductDetails>
@@ -179,6 +201,13 @@ const ProductInfo = styled.div`
     margin: 8px 0px;
     font-weight: bold;
   }
+`;
+
+const ProductCounterSection = styled.div`
+  display: flex;
+  align-items: center;
+  column-gap: 16px;
+  margin-top: 16px;
 `;
 // product quantity increment decrement
 const ProductQuantityCount = styled.div`
