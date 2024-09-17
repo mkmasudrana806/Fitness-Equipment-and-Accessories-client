@@ -8,6 +8,7 @@ import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import {
   removeCurrentOrder,
   setCurrentOrder,
+  setOrderToStore,
 } from "../../redux/features/orders/orderSlice";
 import { useNavigate } from "react-router-dom";
 import { removeAllCarts } from "../../redux/features/carts/cartsSlice";
@@ -78,10 +79,17 @@ const CheckOutPage = () => {
     dispatch(removeCurrentOrder());
     dispatch(removeAllCarts());
 
-    // pass order data to server
-    await makeAnOrder(order);
-    setBtnLoading(false);
-    navigate("/user/purchase-success");
+    try {
+      // pass order data to server
+      const { data } = await makeAnOrder(order).unwrap();
+      setBtnLoading(false);
+      // store this order to store
+      dispatch(setOrderToStore(data));
+      console.log(data);
+      navigate(`/user/purchase-success/${data?._id}`);
+    } catch (error) {
+      console.log("Error while make an order: ", error);
+    }
   };
   // --------- steps
   const steps = [

@@ -42,7 +42,7 @@ export const userPaths = [
     element: <CheckOutPage />,
   },
   {
-    path: "purchase-success",
+    path: "purchase-success/:id",
     element: <PurchaseSuccessMessage />,
   },
 ];

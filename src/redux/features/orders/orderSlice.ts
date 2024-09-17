@@ -3,15 +3,15 @@ import { TCurrentOrder, TOrder } from "../../../types/ordersType";
 
 // type
 type TOrders = {
-  userOrders: TOrder[] | null;
-  allOrders: TOrder[] | null;
+  userOrders: TOrder[];
+  allOrders: TOrder[];
   currentOrder: TCurrentOrder | null;
 };
 
 // initialState
 const initialState: TOrders = {
-  userOrders: null,
-  allOrders: null,
+  userOrders: [],
+  allOrders: [],
   currentOrder: null,
 };
 
@@ -29,8 +29,16 @@ const orderSlice = createSlice({
     removeCurrentOrder: (state) => {
       state.currentOrder = null;
     },
+
+    // set order to store
+    setOrderToStore: (state, action) => {
+      console.log("action payload: " + action.payload);
+
+      state.userOrders?.push(action.payload);
+    },
   },
 });
 
-export const { setCurrentOrder, removeCurrentOrder } = orderSlice.actions;
+export const { setCurrentOrder, removeCurrentOrder, setOrderToStore } =
+  orderSlice.actions;
 export default orderSlice.reducer;

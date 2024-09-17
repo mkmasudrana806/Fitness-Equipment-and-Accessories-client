@@ -13,6 +13,7 @@ export type TShippingAddress = {
 
 // order type
 export type TOrder = {
+  _id: string;
   userId: string;
   email: string;
   status: "received" | "delivered" | "canceled";
